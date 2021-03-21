@@ -14,7 +14,7 @@ function App() {
         <Switch>
           <Route exact path = "/">
             <MapContainer/>
-            <PageContainer/>
+            <PageContainer/> 
           </Route>
           <Route path = "/maps">
             <MapContainer/>

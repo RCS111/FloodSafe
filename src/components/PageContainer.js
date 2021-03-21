@@ -11,9 +11,13 @@ import FooterComponent from './FooterComponent';
 const PageContainer = () => {
     return (
     <Router>
+
       <div className="App">
+
           <NavbarComponent/>
+
           <div className = "content">
+
             <Switch>
                 <Route exact path = "/">
                     <HomePage/>
@@ -34,9 +38,13 @@ const PageContainer = () => {
                     <ManageRequestPage/>
                 </Route>
             </Switch>
+            
             <FooterComponent/>
+
           </div>
+
       </div>
+
     </Router>
     );
 }
