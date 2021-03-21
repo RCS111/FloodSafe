@@ -5,8 +5,8 @@ import RequestPage from './pages/RequestPage';
 import ReportPage from './pages/ReportPage';
 import StatisticsPage from './pages/StatisticsPage';
 import ManageRequestPage from './pages/ManageRequestPage';
-import NavbarComponent from './NavbarComponent';
-import FooterComponent from './FooterComponent';
+import NavbarComponent from './components/NarBar/NavbarComponent';
+import FooterComponent from './components/Footer/FooterComponent';
 
 const PageContainer = () => {
     return (

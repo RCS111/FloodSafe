@@ -7,16 +7,22 @@ let defaults = {
     zoom : 7
 }
 
-if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(
-        function(position) {
-            defaults.location = [position.coords.latitude, position.coords.longitude]
-            defaults.zoom = 15
-        }
-    )
-}
+function locateBrowserPosition(){
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+            function(position) {
+                defaults.location = [position.coords.latitude, position.coords.longitude]
+                defaults.zoom = 15
+            }
+        )
+    }
+}   
+
+
+locateBrowserPosition()
 
 function CenterMap() {
+
     const map = useMap()
     map.flyTo({lat: defaults.location[0], lng: defaults.location[1]}, defaults.zoom)
 
@@ -28,9 +34,6 @@ function CenterMap() {
         />
     )
 }
-
-
-console.log(defaults)
 
 function MapContainerx() {
 

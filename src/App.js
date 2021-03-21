@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
-import MapContainer from './components/MapContainer';
+import MapContainer from './components/components/Map/MapContainer';
 import PageContainer from './components/PageContainer';
 import NotFoundPage from './components/pages/NotFoundPage';
 
