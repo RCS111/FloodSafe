@@ -4,7 +4,7 @@ import MapContainer from './components/components/Map/MapContainer';
 import PageContainer from './components/PageContainer';
 import NotFoundPage from './components/pages/NotFoundPage';
 
-
+import './components/Buttons.css';
 import './index.css';
 
 function App() {

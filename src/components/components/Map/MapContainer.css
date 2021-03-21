@@ -1,54 +1,20 @@
 .component_map-base{
     height: 70vh;
-    width: 100vw;
+    /*width: 100vw;*/
 
     display: flex;
 
     position: relative;
 
-    background-color: #ffffffdd;
+    background-color: #ffffffaa;
 
     transition: 1.25s;
+
+    overflow-x: hidden;
 }
 
+/*
 .component_map-base:hover{
     background-color: #ffffff55;
 }
-
-.component_map-context{
-
-    position: absolute;
-
-    top: 0;
-    left:0;
-    bottom: 0;
-    right: 0;
-
-    max-width: max-content;
-    height: max-content;
-
-    padding: 10px;
-
-    margin: auto;
-
-    text-align: center;
-
-    z-index: 10;
-}
-
-.component_map-map{
-
-    position: absolute;
-
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-
-    height: 100%;
-    width: 100%;
-
-    /*opacity: 0.5;*/
-
-    z-index: -5;
-}
+*/

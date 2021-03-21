@@ -5,7 +5,6 @@ import "./NavBarComponent.css"
 const NavbarComponent = () => {
     return (
         <nav className = "navbar">
-            <img src="logo512.png" height="40" width="40" alt="FloodSafe"/>
             <h1>Flood Safe</h1>
 
             <div className = "links">
