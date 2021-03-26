@@ -1,4 +1,7 @@
-import { MapContainer, TileLayer, useMap, Marker } from 'react-leaflet'
+import React, { useRef, useEffect } from 'react'
+import { Map, TileLayer } from 'react-leaflet'
+import HeatmapLayer from 'react-leaflet-heatmap-layer';
+import { addressPoints } from './realworld.10000.js';
 
 import "./Map.css"
 
@@ -7,44 +10,55 @@ let defaults = {
     zoom : 7
 }
 
-function locateBrowserPosition(){
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(
-            function(position) {
-                defaults.location = [position.coords.latitude, position.coords.longitude]
-                defaults.zoom = 15
-            }
-        )
-    }
-}   
+function MapContainer() {
 
-locateBrowserPosition()
+    const mapRef = useRef()
 
-function CenterMap() {
-
-    const map = useMap()
-    map.flyTo({lat: defaults.location[0], lng: defaults.location[1]}, defaults.zoom)
-
+    useEffect(() => {
+        const { current = {} } = mapRef
+        const { leafletElement : map } = current
     
-    return (
-        <Marker           
-            position={defaults.location}
-            interactive={false} 
-        />
+        map.locate()
+    
+        map.on('locationfound', onLocationFound)
+
+    }, []
     )
-}
+ 
+    function onLocationFound(event){
 
-function Map() {
+        setTimeout(() => {
+            const { current = {} } = mapRef
+            const { leafletElement : map } = current
+
+            const latlng = event.latlng
+
+            //const radius = event.accuracy
+            //const circle = L.circle(latlng, radius)
+            //circle.addTo(map)
+
+            map.flyTo(latlng, 15)
+        }, 1000)
+        
+
+        
+    }
 
     return (
-        <MapContainer className="component_map-map" center={defaults.location} zoom={defaults.zoom} zoomControl={false} scrollWheelZoom={false}>
+        <Map ref={mapRef} className="component_map-map" center={defaults.location} zoom={defaults.zoom} zoomControl={false} scrollWheelZoom={false}>
             <TileLayer
                 attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
-            <CenterMap />
-        </MapContainer>
+            <HeatmapLayer
+                points={addressPoints}
+                longitudeExtractor={m => m[1]}
+                latitudeExtractor={m => m[0]}
+                intensityExtractor={m => parseFloat(m[2])} 
+                max = {100.0}
+                />
+        </Map>
     );
 }
  
-export default Map;
+export default MapContainer;
