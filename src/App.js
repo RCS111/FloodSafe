@@ -1,20 +1,21 @@
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-
-import MapContainer from './components/components/Map/MapContainer';
-import PageContainer from './components/PageContainer';
-import NotFoundPage from './components/pages/NotFoundPage';
+import { BrowserRouter as Router, Route, Switch, useHistory } from 'react-router-dom';
+import MapContainer from './components/Map/MapContainer';
+import PageContainer from './pages/PageContainer';
+import NotFoundPage from './pages/NotFoundPage';
 
 import './components/Buttons.css';
 import './index.css';
+import SectionContainer from './SectionContainer';
 
 function App() {
+  const history = useHistory();
+
   return (
     <Router>
       <div className="App">
         <Switch>
           <Route exact path = "/">
-            <MapContainer/>
-            <PageContainer/> 
+            <SectionContainer/>
           </Route>
           <Route path = "/maps">
             <MapContainer/>

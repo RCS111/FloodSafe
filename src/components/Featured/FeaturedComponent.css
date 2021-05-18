@@ -1,0 +1,12 @@
+.space {
+    min-height: 60px;
+}
+
+.image1 {
+    background-image: url("../image1.jpg");
+    min-height: 300px;
+  }
+  .image2 {
+    background-image: url("../image2.jpg");
+    min-height: 150px;
+  }
