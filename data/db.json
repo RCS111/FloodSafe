@@ -1,0 +1,82 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "firstName": "Juan",
+      "lastName": "Dela Cruz",
+      "email": "juandelacruz@gmail.com",
+      "password": "1234",
+      "contactNo": "09345832498"
+    }
+  ],
+  "reports": [
+    {
+      "id": 1,
+      "heading": "TYPHOON VICKY",
+      "dateTime": "September 15, 2021 8:30am",
+      "content": "Lorem ipsum dolor sit amet, consectetur adpiscing elit",
+      "uri": ""
+    },
+    {
+      "id": 2,
+      "heading": "EMERGENCY ALERT",
+      "dateTime": "September 14, 2021 8:30am",
+      "content": "Lorem ipsum dolor sit amet, consectetur adpiscing elit",
+      "uri": ""
+    },
+    {
+      "id": 3,
+      "heading": "STORM SURGE",
+      "dateTime": "September 13, 2021 8:30am",
+      "content": "Lorem ipsum dolor sit amet, consectetur adpiscing elit",
+      "uri": ""
+    },
+    {
+      "id": 4,
+      "heading": "FLASH FLOOD",
+      "dateTime": "September 12, 2021 8:30am",
+      "content": "Lorem ipsum dolor sit amet, consectetur adpiscing elit",
+      "uri": ""
+    }
+  ],
+  "statistics": [
+    {
+      "dateTime": "",
+      "floodLevel": [],
+      "flowRate": []
+    }
+  ],
+  "realtime": {
+    "weather": "Cloudy",
+    "temperature": 33,
+    "floodLevel": 3,
+    "flowRate": 2.7
+  },
+  "evacCenters": [
+    {
+      "id": 1,
+      "Name": "",
+      "Address": "",
+      "xcoor": "",
+      "ycoor": "",
+      "uri": ""
+    }
+  ],
+  "heatMaps": [
+    {
+      "location": "",
+      "data": ""
+    }
+  ],
+  "distresses": [
+    {
+      "id": 1,
+      "userId": "",
+      "message": "",
+      "type": "",
+      "uri": "",
+      "xcoor": "",
+      "ycoor": ""
+    }
+  ]
+}
