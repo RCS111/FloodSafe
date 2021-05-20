@@ -45,7 +45,8 @@ function MapContainer() {
     }
 
     return (
-        <Map ref={mapRef} className="component_map-map" center={defaults.location} zoom={defaults.zoom} zoomControl={false} scrollWheelZoom={false}>
+        //zoomControl={false} scrollWheelZoom={false}
+        <Map ref={mapRef} className="component_map-map" center={defaults.location} zoom={defaults.zoom} >
             <TileLayer
                 attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

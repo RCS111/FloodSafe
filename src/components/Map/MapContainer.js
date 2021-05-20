@@ -11,8 +11,6 @@ function MapContainerx() {
             
             <MapNavBar />
 
-            <MapPanel />
-
             <Map />
 
         </div>

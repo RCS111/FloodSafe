@@ -1,5 +1,5 @@
 .component_map-base{
-    height: 70vh;
+    height: 80vh;
     /*width: 100vw;*/
 
     display: flex;
@@ -11,6 +11,8 @@
     transition: 1.25s;
 
     overflow-x: hidden;
+
+    margin: 0;
 }
 
 

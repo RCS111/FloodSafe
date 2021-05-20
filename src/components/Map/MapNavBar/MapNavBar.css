@@ -1,4 +1,10 @@
 .component_map-logo{
     height: 75px;
     margin: 15px;
+    background-color: transparent;
+    position: absolute;
+
+    bottom:0;
+
+    z-index: 10;
 }
