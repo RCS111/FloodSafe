@@ -16,7 +16,6 @@ import NotFoundPage from './pages/NotFoundPage';
 import './components/Buttons.css';
 import './index.css';
 import { amber, blue } from '@material-ui/core/colors';
-import SignInPage from './pages/SignInPage';
 import LogInPage from './pages/LogInPage';
 import { useState } from 'react';
 
@@ -75,9 +74,6 @@ function App() {
             </Route>
             <Route exact path = "/member">
               <MemberPage/>
-            </Route>
-            <Route exact path = "/signin">
-              <SignInPage/>
             </Route>
             <Route exact path = "/login">
               <LogInPage setCredential = {setCredential}/>

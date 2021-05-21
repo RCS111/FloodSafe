@@ -1,6 +1,6 @@
 import {useState, Fragment} from 'react'
 import clsx from 'clsx';
-import {Button, Card, Container, Divider, IconButton, makeStyles, MenuItem, useTheme} from '@material-ui/core'
+import {Button, Container, Divider, IconButton, makeStyles, useTheme} from '@material-ui/core'
 import Drawer from '@material-ui/core/Drawer'
 import Typography from '@material-ui/core/Typography'
 import List from '@material-ui/core/List'
@@ -197,23 +197,25 @@ export default function Layout({children, credential, setCredential}) {
                 </Toolbar>
             </AppBar>
 
-            <Menu
-                id = 'account'
-                anchorEl = {anchorEl}
-                keppMounted
-                open = {Boolean(anchorEl)}
-                onClose = {() => setAnchorEl(null)}
-                getContentAnchorEl={null}
-                anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
-                transformOrigin={{ vertical: "top", horizontal: "center" }}
-            >
-                <Container align ='center'>
-                    <Avatar className = {classes.avatar}/>
-                    <Typography variant = 'h6'>{`${credential.firstName} ${credential.lastName}`}</Typography>
-                    <Typography variant = 'p'>{`${credential.email}`}</Typography>
-                    <Button color = 'secondary' variant = 'contained' onClick = {() => {setCredential(null); setAnchorEl(null);}} fullWidth className = {classes.button}>Log Out</Button>
-                </Container>
-            </Menu>
+            {
+                credential != null ? <Menu
+                    id = 'account'
+                    anchorEl = {anchorEl}
+                    keppMounted
+                    open = {Boolean(anchorEl)}
+                    onClose = {() => setAnchorEl(null)}
+                    getContentAnchorEl={null}
+                    anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+                    transformOrigin={{ vertical: "top", horizontal: "center" }}
+                >
+                    <Container align ='center'>
+                        <Avatar className = {classes.avatar}/>
+                        <Typography variant = 'h6'>{`${credential.firstName} ${credential.lastName}`}</Typography>
+                        <Typography variant = 'p'>{`${credential.email}`}</Typography>
+                        <Button color = 'secondary' variant = 'contained' onClick = {() => {setCredential(null); setAnchorEl(null);}} fullWidth className = {classes.button}>Log Out</Button>
+                    </Container>
+                </Menu> : null
+            }
 
             <Drawer
                 variant="permanent"
