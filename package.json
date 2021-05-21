@@ -14,7 +14,6 @@
     "date-fns": "^2.21.3",
     "leaflet": "^1.7.1",
     "react": "^17.0.1",
-    "react-bootstrap": "^1.5.2",
     "react-dom": "^17.0.1",
     "react-leaflet": "2.8.0",
     "react-leaflet-heatmap-layer": "^2.0.0",

@@ -16,6 +16,9 @@ import NotFoundPage from './pages/NotFoundPage';
 import './components/Buttons.css';
 import './index.css';
 import { amber, blue } from '@material-ui/core/colors';
+import SignInPage from './pages/SignInPage';
+import LogInPage from './pages/LogInPage';
+import { useState } from 'react';
 
 const theme = createMuiTheme({
   palette: {
@@ -32,10 +35,12 @@ const theme = createMuiTheme({
 });
 
 function App() {
+  const [credential, setCredential] = useState(null);
+
   return (
     <ThemeProvider theme = {theme}>
       <Router>
-        <Layout>
+        <Layout credential = {credential} setCredential = {setCredential}>
           <Switch>
             <Route exact path = "/">
               <HomePage/>
@@ -49,9 +54,13 @@ function App() {
             <Route exact path = "/statistics">
               <StatisticsPage/>
             </Route>
-            <Route exact path = "/request">
-              <RequestPage/>
-            </Route>
+            {
+              credential != null ?
+              <Route exact path = "/request">
+                <RequestPage/>
+              </Route> :
+              null
+            }
             <Route path = "/maps">
               <MapContainer/>
             </Route>
@@ -66,6 +75,12 @@ function App() {
             </Route>
             <Route exact path = "/member">
               <MemberPage/>
+            </Route>
+            <Route exact path = "/signin">
+              <SignInPage/>
+            </Route>
+            <Route exact path = "/login">
+              <LogInPage setCredential = {setCredential}/>
             </Route>
             <Route path = "*">
               <NotFoundPage/>

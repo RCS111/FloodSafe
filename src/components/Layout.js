@@ -1,17 +1,19 @@
-import {useState} from 'react'
+import {useState, Fragment} from 'react'
 import clsx from 'clsx';
-import {Divider, IconButton, makeStyles, useTheme} from '@material-ui/core'
+import {Button, Card, Container, Divider, IconButton, makeStyles, MenuItem, useTheme} from '@material-ui/core'
 import Drawer from '@material-ui/core/Drawer'
 import Typography from '@material-ui/core/Typography'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemIcon from '@material-ui/core/ListItemIcon'
 import ListItemText from '@material-ui/core/ListItemText'
-import {HomeOutlined, CallOutlined, AssessmentOutlined, TimelineOutlined, MapOutlined, InfoOutlined, ContactMailOutlined, LiveHelpOutlined, PeopleAltOutlined, Menu, ChevronRight, ChevronLeft} from '@material-ui/icons'
+import {HomeOutlined, CallOutlined, AssessmentOutlined, TimelineOutlined, MapOutlined, InfoOutlined, ContactMailOutlined, LiveHelpOutlined, PeopleAltOutlined, ChevronRight, ChevronLeft} from '@material-ui/icons'
 import { useHistory, useLocation } from 'react-router'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import Avatar from '@material-ui/core/Avatar'
+import MenuIcon from '@material-ui/icons/Menu'
+import Menu from '@material-ui/core/Menu'
 
 const drawerWidth = 240;
 
@@ -92,15 +94,20 @@ const useStyles = makeStyles((theme) => {
               width: theme.spacing(9) + 1,
             },
         },
+        button: {
+            marginTop: 20,
+            marginBottom: 20
+        }
     }
 })
 
-export default function Layout({children}) {
+export default function Layout({children, credential, setCredential}) {
     const classes = useStyles();
     const history = useHistory();
     const location = useLocation();
     const theme = useTheme();
-    const [open, setOpen] = useState(false);
+    const [openDrawer, setOpenDrawer] = useState(false);
+    const [anchorEl, setAnchorEl] = useState(null);
 
     const menuItems = [
         {
@@ -155,7 +162,7 @@ export default function Layout({children}) {
             <AppBar
                 position = 'fixed'
                 className={clsx(classes.appBar, {
-                    [classes.appBarShift]: open,
+                    [classes.appBarShift]: openDrawer,
                   })}
                 elevation = {1}
             >
@@ -163,34 +170,61 @@ export default function Layout({children}) {
                     <IconButton
                         color="inherit"
                         aria-label="open drawer"
-                        onClick={() => setOpen(true)}
+                        onClick={() => setOpenDrawer(true)}
                         edge="start"
                         className={clsx(classes.menuButton, {
-                          [classes.hide]: open,
+                          [classes.hide]: openDrawer,
                         })}
                     >
-                        <Menu/>
+                        <MenuIcon/>
                     </IconButton>
                     <Typography className = {classes.appTitle} variant = 'h6' noWrap>
                         FloodSafe
                     </Typography>
-                    <Typography>
-                        Juan Dela Cruz
-                    </Typography>
-                    <Avatar className = {classes.avatar}/>
+                    {credential != null ?
+                        <Fragment>
+                            <Typography>{`${credential.firstName} ${credential.lastName}`}</Typography>
+                            <Avatar className = {classes.avatar} onClick = {(e) => setAnchorEl(e.currentTarget)}/>
+                        </Fragment> :
+                        <Button 
+                            color = 'secondary' 
+                            variant = 'contained'
+                            onClick = {() => history.push('/login')}
+                        >
+                            Log In
+                        </Button>  
+                    }
                 </Toolbar>
             </AppBar>
+
+            <Menu
+                id = 'account'
+                anchorEl = {anchorEl}
+                keppMounted
+                open = {Boolean(anchorEl)}
+                onClose = {() => setAnchorEl(null)}
+                getContentAnchorEl={null}
+                anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+                transformOrigin={{ vertical: "top", horizontal: "center" }}
+            >
+                <Container align ='center'>
+                    <Avatar className = {classes.avatar}/>
+                    <Typography variant = 'h6'>{`${credential.firstName} ${credential.lastName}`}</Typography>
+                    <Typography variant = 'p'>{`${credential.email}`}</Typography>
+                    <Button color = 'secondary' variant = 'contained' onClick = {() => {setCredential(null); setAnchorEl(null);}} fullWidth className = {classes.button}>Log Out</Button>
+                </Container>
+            </Menu>
 
             <Drawer
                 variant="permanent"
                 className={clsx(classes.drawer, {
-                  [classes.drawerOpen]: open,
-                  [classes.drawerClose]: !open,
+                  [classes.drawerOpen]: openDrawer,
+                  [classes.drawerClose]: !openDrawer,
                 })}
                 classes={{
                   paper: clsx({
-                    [classes.drawerOpen]: open,
-                    [classes.drawerClose]: !open,
+                    [classes.drawerOpen]: openDrawer,
+                    [classes.drawerClose]: !openDrawer,
                   }),
                 }}
             >
@@ -198,13 +232,13 @@ export default function Layout({children}) {
                     <Typography variant = 'h5' className = {classes.title}>
                         Flood Safe
                     </Typography>
-                    <IconButton onClick={() => setOpen(false)}>
+                    <IconButton onClick={() => setOpenDrawer(false)}>
                         {theme.direction === 'rtl' ? <ChevronRight /> : <ChevronLeft />}
                     </IconButton>
                 </div>
                 <Divider />
                 <List>
-                    {menuItems.slice(0, 4).map(item => (
+                    {menuItems.slice(0, credential != null ? 4 : 3).map(item => (
                         <ListItem
                             button
                             key = {item.text}

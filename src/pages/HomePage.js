@@ -36,7 +36,7 @@ const HomePage = () => {
                         <Grid item xs={12} md = {4}>
                             <Paper>
                                 <Typography align = 'center' variant = 'h6'>Weather</Typography>
-                                <Typography align = 'center' variant = 'h3'>{`${realtime.temperature} C`}</Typography>
+                                <Typography align = 'center' variant = 'h3'>{`${realtime.temperature} \u00B0C`}</Typography>
                             </Paper>
                         </Grid>
                     </Grid>

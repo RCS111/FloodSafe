@@ -9,7 +9,7 @@ export function LineGraph({points, maxY}) {
         <svg width = {`${width}`} height = {`${height}`}>
             <rect width = {`${width}`} height = {`${height}`} fill = '#CCCCCC'/>
             {points.map((point, index) => (
-                <circle cx={`${index / (xRange - 1) * width}`} cy={`${height - (point / maxY) * height}`} r="1" stroke="green" stroke-width="1" fill="yellow" />
+                <circle cx={`${index / (xRange - 1) * width}`} cy={`${height - (point / maxY) * height}`} r="1" stroke="green" strokeWidth="1" fill="yellow" />
             ))}
         </svg>
     );
