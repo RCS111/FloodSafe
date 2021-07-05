@@ -2,6 +2,7 @@ import { Container, Grid, makeStyles, Typography } from "@material-ui/core";
 import useFetch from '../shared/useFetch'
 import ReportCard from '../components/ReportCard'
 import {serverUrl} from '../shared/serverUrl'
+import Loading from '../components/Loading';
 
 const useStyles = makeStyles(() => {
     return {
@@ -13,11 +14,10 @@ const useStyles = makeStyles(() => {
 
 const ReportPage = () => {
     const { error, isPending, data: reports } = useFetch(`${serverUrl}reports`);
-    const classes = useStyles();
     return (
         <div>
             { error && <Typography>{ error }</Typography> }
-            { isPending && <Typography>Loading...</Typography> }
+            { isPending && <Loading/> }
             { reports && 
                 <Container>
                     <Grid container spacing = {2}>

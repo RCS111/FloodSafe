@@ -137,11 +137,11 @@ export default function LogInPage({setCredential}) {
     return (
         <Container>
             <Grid container>
-                <Grid item xs={12} md={6} key = 'description'>
+                <Grid item xs={12} md={5} key = 'description'>
                     <Typography variant = 'h2'>Flood Safe</Typography>
                     <Typography variant = 'h5'>Be aware, prepared and updated with your local flood condition.</Typography>
                 </Grid>
-                <Grid item xs={12} md={6} key = 'form'>
+                <Grid item xs={12} md={6} offset = {1} key = 'form'>
                     <Card>
                         <CardContent>
                             <form noValidate autoComplete = 'off' onSubmit = {handleLogin}>

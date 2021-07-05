@@ -3,6 +3,7 @@ import { useState } from "react";
 import {LineGraph} from "../components/Graph"
 import { serverUrl } from "../shared/serverUrl";
 import useFetch from "../shared/useFetch";
+import Loading from '../components/Loading';
 
 function getFloodLevel(statistics, range) {
     if(range === 'Day')
@@ -37,7 +38,7 @@ const StatisticsPage = () => {
     return (
         <div>
             { error && <Typography>{ error }</Typography> }
-            { isPending && <Typography>Loading...</Typography> }
+            { isPending && <Loading/> }
             { statistics && 
                 <Container align = 'center'>
                     <Grid container>

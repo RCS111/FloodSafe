@@ -1,7 +1,6 @@
 import React, {useState} from 'react'
-import { Button, Container, FormControl, FormControlLabel, FormLabel, Grid, Radio, RadioGroup, TextField } from "@material-ui/core"
+import { Button, Container, Typography, Grid, TextField, Card } from "@material-ui/core"
 import { makeStyles } from '@material-ui/core'
-import SendIcon from '@material-ui/icons/Send'
 import {serverUrl} from '../shared/serverUrl'
 
 const useStyles = makeStyles({
@@ -46,50 +45,59 @@ const RequestPage = () => {
     }
 
     return (
-        <div>
-            <Container>
-                <form noValidate autoComplete = 'off' onSubmit = {handleSubmit}>
-                    <Grid container>
-                        <Grid item xs={12}>
-                            <TextField
-                                onChange = {(e) => setMessage(e.target.value)}
-                                className = {classes.field}
-                                label = 'Message'
-                                variant = 'outlined'
-                                color = 'primary'
-                                multiline
-                                rows = {4}
-                                fullWidth
-                                required
-                                error = {messageError}
-                                value = {message}
-                            />
-                        </Grid>
-                        <Grid item xs={12} sm={6}>
-                            <FormControl className = {classes.field}>
-                                <FormLabel>Distress Type</FormLabel>
-                                <RadioGroup value = {type} onChange = {e => setType(e.target.value)}>
-                                    <FormControlLabel value = 'money' control = {<Radio />} label = 'Money'/>
-                                    <FormControlLabel value = 'todos' control = {<Radio />} label = 'Todos'/>
-                                    <FormControlLabel value = 'reminders' control = {<Radio />} label = 'Reminder'/>
-                                    <FormControlLabel value = 'work' control = {<Radio />} label = 'Work'/>
-                                </RadioGroup>
-                            </FormControl>
-                        </Grid>
-                        <Grid item xs = {12} align = 'center'>
-                            <Button
-                                type = 'submit' 
-                                color = 'secondary' 
-                                variant = 'contained' 
-                                endIcon = {<SendIcon/>}
-                            >
-                                SUBMIT
-                            </Button>
-                        </Grid>
+        <Container>
+            <form>
+                <Grid container spacing = {3}>
+                    <Grid item xs = {12} align = 'center'>
+                        <Card>
+                            <img src = 'img/requestBanner.jpg' width = '100%' background-position = 'center' alt = 'Banner'/>
+                        </Card>
                     </Grid>
-                </form>
-            </Container>
-        </div>
+                    <Grid item xs = {12}>
+                        <Typography variant = 'h6'>Fill up the following and submit your request</Typography>
+                    </Grid>
+                    <Grid item xs = {12} md = {4}>
+                        <TextField
+                            label = 'Name'
+                            variant = 'outlined'
+                            color = 'secondary'
+                            fullWidth
+                        />
+                        <TextField
+                            label = 'Address'
+                            variant = 'outlined'
+                            color = 'secondary'
+                            fullWidth
+                        />
+                        <TextField
+                            label = 'Contact No.'
+                            variant = 'outlined'
+                            color = 'secondary'
+                            fullWidth
+                        />
+                        <TextField
+                            label = 'Age'
+                            variant = 'outlined'
+                            color = 'secondary'
+                            fullWidth
+                        />
+                    </Grid>
+                    <Grid item xs = {12} md = {8}>
+                        <TextField
+                            label = 'Message'
+                            variant = 'outlined'
+                            color = 'secondary'
+                            multiline
+                            rows={4}
+                            fullWidth
+                        />
+                    </Grid>
+                    <Grid item xs = {12} align = 'center'>
+                        <Button variant = 'contained' type = 'submit' color = 'primary'>Submit</Button>
+                    </Grid>
+                </Grid>
+            </form>
+        </Container>
     );
 }
  

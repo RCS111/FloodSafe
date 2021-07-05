@@ -17,6 +17,42 @@
       "contactNo": "09673453445",
       "type": "standard",
       "id": 2
+    },
+    {
+      "firstName": "Dane Andrei",
+      "lastName": "Agoyaoy",
+      "email": "agoyaoydane03@gmail.com ",
+      "password": "123456789",
+      "contactNo": "09993137810",
+      "type": "standard",
+      "id": 3
+    },
+    {
+      "firstName": "Dane Andrei",
+      "lastName": "Agoyaoy",
+      "email": "agoyaoydane03@gmail.com ",
+      "password": "123456789",
+      "contactNo": "09993137810",
+      "type": "standard",
+      "id": 4
+    },
+    {
+      "firstName": "Dane",
+      "lastName": "Agoyaoy",
+      "email": "agoyaoydane03@gmail.com",
+      "password": "123456789",
+      "contactNo": "099933137810",
+      "type": "standard",
+      "id": 5
+    },
+    {
+      "firstName": "Ira",
+      "lastName": "De Leon",
+      "email": "ira@gmail.com",
+      "password": "Ira1234",
+      "contactNo": "09651111111",
+      "type": "standard",
+      "id": 6
     }
   ],
   "reports": [

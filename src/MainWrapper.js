@@ -7,68 +7,86 @@ import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemIcon from '@material-ui/core/ListItemIcon'
 import ListItemText from '@material-ui/core/ListItemText'
-import {HomeOutlined, CallOutlined, AssessmentOutlined, TimelineOutlined, MapOutlined, InfoOutlined, ContactMailOutlined, LiveHelpOutlined, PeopleAltOutlined, ChevronRight, ChevronLeft} from '@material-ui/icons'
+import {HomeOutlined, CallOutlined, AssessmentOutlined, TimelineOutlined, MapOutlined, InfoOutlined, ContactMailOutlined, LiveHelpOutlined, PeopleAltOutlined} from '@material-ui/icons'
 import { useHistory, useLocation } from 'react-router'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import Avatar from '@material-ui/core/Avatar'
 import MenuIcon from '@material-ui/icons/Menu'
 import Menu from '@material-ui/core/Menu'
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import AccountCircleOutlinedIcon from '@material-ui/icons/AccountCircleOutlined';
+import TextField from '@material-ui/core/TextField';
+import Autocomplete from '@material-ui/lab/Autocomplete';
 
-const drawerWidth = 240;
+const drawerWidth = 260;
 
 const useStyles = makeStyles((theme) => {
     return {
-        page: {
+        root: {
+            display: 'flex',
             background: '#F9F9F9',
             width: '100%',
-            padding: theme.spacing(3)
-        },
-        drawer: {
-            width: drawerWidth,
-            flexShrink: 0,
-            whiteSpace: 'nowrap',
-        },
-        drawerPaper: {
-            width: drawerWidth
-        },
-        root: {
-            display: 'flex'
-        },
-        active: {
-            background: '#F4F4F4'
-        },
-        title: {
-            padding: theme.spacing(2)
+            height: '100%',
         },
         appBar: {
-            zIndex: theme.zIndex.drawer + 1,
             transition: theme.transitions.create(['width', 'margin'], {
               easing: theme.transitions.easing.sharp,
               duration: theme.transitions.duration.leavingScreen,
             }),
         },
-          appBarShift: {
+        appBarShift: {
             marginLeft: drawerWidth,
             width: `calc(100% - ${drawerWidth}px)`,
             transition: theme.transitions.create(['width', 'margin'], {
-              easing: theme.transitions.easing.sharp,
-              duration: theme.transitions.duration.enteringScreen,
+                easing: theme.transitions.easing.sharp,
+                duration: theme.transitions.duration.enteringScreen,
             }),
         },
         menuButton: {
-          marginRight: 36,
+          marginRight: theme.spacing(2),
         },
         hide: {
             display: 'none',
         },
-        toolbar: {
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'flex-end',
-            padding: theme.spacing(0, 1),
-            // necessary for content to be below app bar
-            ...theme.mixins.toolbar,
+        drawer: {
+            width: drawerWidth,
+            flexShrink: 0,
+        },
+        drawerPaper: {
+            width: drawerWidth
+        },
+        drawerHeader: {
+          display: 'flex',
+          alignItems: 'center',
+          padding: theme.spacing(0, 1),
+          // necessary for content to be below app bar
+          ...theme.mixins.toolbar,
+          justifyContent: 'flex-end',
+        },
+        content: {
+          flexGrow: 1,
+          padding: theme.spacing(3),
+          transition: theme.transitions.create('margin', {
+            easing: theme.transitions.easing.sharp,
+            duration: theme.transitions.duration.leavingScreen,
+          }),
+          marginLeft: -drawerWidth,
+        },
+        contentShift: {
+          transition: theme.transitions.create('margin', {
+            easing: theme.transitions.easing.easeOut,
+            duration: theme.transitions.duration.enteringScreen,
+          }),
+          marginLeft: 0,
+        },
+
+        active: {
+            background: '#F4F4F4'
+        },
+        title: {
+            padding: theme.spacing(2)
         },
         appTitle: {
             flexGrow: 1
@@ -101,13 +119,23 @@ const useStyles = makeStyles((theme) => {
     }
 })
 
-export default function Layout({children, credential, setCredential}) {
+const options = ['Hagonoy', 'Paombong', 'Malolos', 'Calumpit'];
+
+export default function MainWrapper({children, credential, setCredential, sensorLocation, setSensorLocation}) {
     const classes = useStyles();
     const history = useHistory();
     const location = useLocation();
     const theme = useTheme();
-    const [openDrawer, setOpenDrawer] = useState(false);
+    const [open, setOpen] = useState(false);
     const [anchorEl, setAnchorEl] = useState(null);
+
+    const handleDrawerOpen = () => {
+        setOpen(true);
+    };
+
+    const handleDrawerClose = () => {
+        setOpen(false);
+    };
 
     const menuItems = [
         {
@@ -162,19 +190,17 @@ export default function Layout({children, credential, setCredential}) {
             <AppBar
                 position = 'fixed'
                 className={clsx(classes.appBar, {
-                    [classes.appBarShift]: openDrawer,
-                  })}
+                    [classes.appBarShift]: open,
+                })}
                 elevation = {1}
             >
                 <Toolbar>
                     <IconButton
                         color="inherit"
                         aria-label="open drawer"
-                        onClick={() => setOpenDrawer(true)}
+                        onClick={handleDrawerOpen}
                         edge="start"
-                        className={clsx(classes.menuButton, {
-                          [classes.hide]: openDrawer,
-                        })}
+                        className={clsx(classes.menuButton, open && classes.hide)}
                     >
                         <MenuIcon/>
                     </IconButton>
@@ -183,6 +209,24 @@ export default function Layout({children, credential, setCredential}) {
                     </Typography>
                     {credential != null ?
                         <Fragment>
+                            <Autocomplete
+                                id="location-selector"
+                                style={{ width: 300 }}
+                                options={options}
+                                autoHighlight
+                                value={sensorLocation}
+                                onChange={(event, newValue) => {
+                                    setSensorLocation(newValue);
+                                }}
+                                renderOption={(option) => (
+                                    <span>{option}</span>
+                                )}
+                                //inputValue={inputValue}
+                                //onInputChange={(event, newInputValue) => {
+                                //setInputValue(newInputValue);
+                                //}}
+                                renderInput={(params) => <TextField {...params} variant="outlined" />}
+                            />
                             <Typography>{`${credential.firstName} ${credential.lastName}`}</Typography>
                             <Avatar className = {classes.avatar} onClick = {(e) => setAnchorEl(e.currentTarget)}/>
                         </Fragment> :
@@ -218,29 +262,26 @@ export default function Layout({children, credential, setCredential}) {
             }
 
             <Drawer
-                variant="permanent"
-                className={clsx(classes.drawer, {
-                  [classes.drawerOpen]: openDrawer,
-                  [classes.drawerClose]: !openDrawer,
-                })}
-                classes={{
-                  paper: clsx({
-                    [classes.drawerOpen]: openDrawer,
-                    [classes.drawerClose]: !openDrawer,
-                  }),
-                }}
+                className={classes.drawer}
+                variant="persistent"
+                anchor="left"
+                open={open}
+                classes={{paper: classes.drawerPaper}}
             >
-                <div className={classes.toolbar}>
+                <div className={classes.drawerHeader}>
+                    <Avatar src = 'img/logo.png'/>
                     <Typography variant = 'h5' className = {classes.title}>
                         Flood Safe
                     </Typography>
-                    <IconButton onClick={() => setOpenDrawer(false)}>
-                        {theme.direction === 'rtl' ? <ChevronRight /> : <ChevronLeft />}
+                    <IconButton onClick={handleDrawerClose}>
+                        {theme.direction === 'ltr' ? <ChevronLeftIcon  /> : <ChevronRightIcon  />}
                     </IconButton>
                 </div>
+                
+                <Button startIcon={<AccountCircleOutlinedIcon />} variant = 'contained' color = 'secondary'>{`${credential.firstName} ${credential.lastName}`}</Button>
                 <Divider />
                 <List>
-                    {menuItems.slice(0, credential != null ? 4 : 3).map(item => (
+                    {menuItems.slice(0, credential != null ? 5 : 4).map(item => (
                         <ListItem
                             button
                             key = {item.text}
@@ -252,8 +293,7 @@ export default function Layout({children, credential, setCredential}) {
                         </ListItem>
                     ))}
                 </List>
-                <Divider />
-                <List>
+                {/* <List>
                     {menuItems.slice(4, 5).map(item => (
                         <ListItem
                             button
@@ -265,7 +305,7 @@ export default function Layout({children, credential, setCredential}) {
                             <ListItemText primary = {item.text} />
                         </ListItem>
                     ))}
-                </List>
+                </List> */}
                 <Divider />
                 <List>
                     {menuItems.slice(5, 9).map(item => (
@@ -281,8 +321,8 @@ export default function Layout({children, credential, setCredential}) {
                     ))}
                 </List>
             </Drawer>
-            <div className = {classes.page}>
-                <div className = {classes.toolbar}></div>
+            <div className={clsx(classes.content, {[classes.contentShift]: open})}>
+                <div className={classes.drawerHeader} />
                 {children}
             </div>
         </div>

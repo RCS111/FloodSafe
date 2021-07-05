@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core'
 
-import Layout from './components/Layout'
+import MainWrapper from './MainWrapper'
 import MapContainer from './components/Map/MapContainer';
 import HomePage from './pages/HomePage';
 import RequestPage from './pages/RequestPage';
@@ -35,55 +35,56 @@ const theme = createMuiTheme({
 
 function App() {
   const [credential, setCredential] = useState(null);
+  const [sensorLocation, setSensorLocation] = useState(null);
 
   return (
     <ThemeProvider theme = {theme}>
-      <Router>
-        <Layout credential = {credential} setCredential = {setCredential}>
-          <Switch>
-            <Route exact path = "/">
-              <HomePage/>
-            </Route>
-            <Route exact path = "/home">
-              <HomePage/>
-            </Route>
-            <Route exact path = "/reports">
-              <ReportPage/>
-            </Route>
-            <Route exact path = "/statistics">
-              <StatisticsPage/>
-            </Route>
-            {
-              credential != null ?
-              <Route exact path = "/request">
-                <RequestPage/>
-              </Route> :
-              null
-            }
-            <Route path = "/maps">
-              <MapContainer/>
-            </Route>
-            <Route exact path = "/about">
-              <AboutPage/>
-            </Route>
-            <Route exact path = "/contact">
-              <ContactPage/>
-            </Route>
-            <Route exact path = "/support">
-              <SupportPage/>
-            </Route>
-            <Route exact path = "/member">
-              <MemberPage/>
-            </Route>
-            <Route exact path = "/login">
-              <LogInPage setCredential = {setCredential}/>
-            </Route>
-            <Route path = "*">
-              <NotFoundPage/>
-            </Route>
-          </Switch>
-        </Layout>
-      </Router>
+        {credential == null ? 
+            <LogInPage setCredential = {setCredential}/> : 
+            <Router>
+            <MainWrapper credential = {credential} setCredential = {setCredential} sensorLocation = {sensorLocation} setSensorLocation = {setSensorLocation}>
+              <Switch>
+                <Route exact path = "/">
+                  <HomePage/>
+                </Route>
+                <Route exact path = "/home">
+                  <HomePage/>
+                </Route>
+                <Route exact path = "/reports">
+                  <ReportPage/>
+                </Route>
+                <Route exact path = "/statistics">
+                  <StatisticsPage/>
+                </Route>
+                {
+                  credential != null ?
+                  <Route exact path = "/request">
+                    <RequestPage/>
+                  </Route> :
+                  null
+                }
+                <Route path = "/maps">
+                  <MapContainer/>
+                </Route>
+                <Route exact path = "/about">
+                  <AboutPage/>
+                </Route>
+                <Route exact path = "/contact">
+                  <ContactPage/>
+                </Route>
+                <Route exact path = "/support">
+                  <SupportPage/>
+                </Route>
+                <Route exact path = "/member">
+                  <MemberPage/>
+                </Route>
+                <Route path = "*">
+                  <NotFoundPage/>
+                </Route>
+              </Switch>
+            </MainWrapper>
+            </Router>
+        }
     </ThemeProvider>
   );
 }
