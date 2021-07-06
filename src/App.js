@@ -12,6 +12,7 @@ import ContactPage from './pages/ContactPage.js';
 import SupportPage from './pages/SupportPage';
 import MemberPage from './pages/MemberPage.js';
 import NotFoundPage from './pages/NotFoundPage';
+import ReportViewer from './components/ReportViewer';
 
 import './components/Buttons.css';
 import './index.css';
@@ -40,7 +41,7 @@ function App() {
   return (
     <ThemeProvider theme = {theme}>
         {credential == null ? 
-            <LogInPage setCredential = {setCredential}/> : 
+            <LogInPage setCredential = {setCredential} setSensorLocation = {setSensorLocation}/> : 
             <Router>
             <MainWrapper credential = {credential} setCredential = {setCredential} sensorLocation = {sensorLocation} setSensorLocation = {setSensorLocation}>
               <Switch>
@@ -53,13 +54,16 @@ function App() {
                 <Route exact path = "/reports">
                   <ReportPage/>
                 </Route>
+                <Route exact path = "/reports/:id">
+                  <ReportViewer/>
+                </Route>
                 <Route exact path = "/statistics">
-                  <StatisticsPage/>
+                  <StatisticsPage sensorLocation = {sensorLocation}/>
                 </Route>
                 {
                   credential != null ?
                   <Route exact path = "/request">
-                    <RequestPage/>
+                    <RequestPage credential = {credential}/>
                   </Route> :
                   null
                 }

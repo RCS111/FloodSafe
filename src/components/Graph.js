@@ -1,14 +1,13 @@
-export function LineGraph({points, maxY}) {
-    var xRange = points.length; 
-    var width = 400;
-    var height = 300;
+import React from 'react'
+import { Line } from 'react-chartjs-2';
+import { Card } from "@material-ui/core";
 
+function Graph({data}) {
     return (
-        <svg width = {`${width}`} height = {`${height}`}>
-            <rect width = {`${width}`} height = {`${height}`} fill = '#CCCCCC'/>
-            {points.map((point, index) => (
-                <circle cx={`${index / (xRange - 1) * width}`} cy={`${height - (point / maxY) * height}`} r="2" stroke="green" strokeWidth="1" fill="yellow" />
-            ))}
-        </svg>
-    );
+        <Card>
+            <Line data={data} />
+        </Card>
+    )
 }
+
+export default Graph

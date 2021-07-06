@@ -5,6 +5,7 @@ import Divider from '@material-ui/core/Divider';
 import { Button, Card } from "@material-ui/core";
 import { Link } from 'react-router-dom';
 import Loading from '../components/Loading';
+import FilterDramaIcon from '@material-ui/icons/FilterDrama';
 
 const useStyles = makeStyles(() => {
     return {
@@ -15,13 +16,14 @@ const useStyles = makeStyles(() => {
 });
 
 const HomePage = () => {
-    const { error, isPending, data: realtime } = useFetch(`${serverUrl}realtime`);
+    const { dashError, isDashPending, data: realtime } = useFetch(`${serverUrl}realtime`);
+    const { reportError, isReportPending, data: reports } = useFetch(`${serverUrl}reports`);
     const classes = useStyles();
     return (
         <div>
-            { error && <Typography>{ error }</Typography> }
-            { isPending && <Loading/> }
-            { realtime && 
+            { dashError || reportError && <Typography>{ dashError }</Typography> }
+            { isDashPending || isReportPending && <Loading/> }
+            { realtime && reports && 
                 <Container>
                     <Grid container spacing = {3}>
                         <Grid item xs = {12} md = {6}>
@@ -42,21 +44,22 @@ const HomePage = () => {
                     <Typography variant = 'h5' align = 'center' className = {classes.heading}>Real-Time Flood Monitoring Updates</Typography>
                     <Grid container spacing = {3}>
                         <Grid item xs={12} md = {4}>
-                            <Paper>
+                            <Paper color = 'primary' align = 'center'>
                                 <Typography align = 'center' variant = 'h6'>Flow Rate</Typography>
                                 <Typography align = 'center' variant = 'h3'>{`${realtime.flowRate} m/s`}</Typography>
                             </Paper>
                         </Grid>
                         <Grid item xs={12} md = {4}>
-                            <Paper>
+                            <Paper align = 'center'>
                                 <Typography align = 'center' variant = 'h6'>Water Level</Typography>
                                 <Typography align = 'center' variant = 'h3'>{`${realtime.floodLevel} ft`}</Typography>
                             </Paper>
                         </Grid>
                         <Grid item xs={12} md = {4}>
-                            <Paper>
+                            <Paper align = 'center'>
                                 <Typography align = 'center' variant = 'h6'>Weather</Typography>
-                                <Typography align = 'center' variant = 'h3'>{`${realtime.temperature} \u00B0C`}</Typography>
+                                <FilterDramaIcon/>
+                                <Typography align = 'center' variant = 'h5'>{`${realtime.temperature} \u00B0C`}</Typography>
                             </Paper>
                         </Grid>
                     </Grid>
@@ -68,18 +71,17 @@ const HomePage = () => {
                         <Grid item xs = {6}>
                             <Typography align = 'right' variant = 'body1'>Today, September 15, 2020 7:32 am</Typography>
                         </Grid>
-                        <Grid item xs = {3}>
-                            <Typography align = 'left' variant = 'h6'><Card>A</Card></Typography>
-                        </Grid>
-                        <Grid item xs = {3}>
-                            <Typography align = 'left' variant = 'h6'><Card>A</Card></Typography>
-                        </Grid>
-                        <Grid item xs = {3}>
-                            <Typography align = 'left' variant = 'h6'><Card>A</Card></Typography>
-                        </Grid>
-                        <Grid item xs = {3}>
-                            <Typography align = 'left' variant = 'h6'><Card>A</Card></Typography>
-                        </Grid>
+                        {
+                            reports.map((report) => (
+                                <Grid item xs = {3} id = {report.id}>
+                                    <Card>
+                                        <img src = {`${serverUrl}images/${reports[0].uri}`} width = '40%' />
+                                        <Typography align = 'left' variant = 'h6'>{report.heading}</Typography>
+                                        <Typography align = 'left' variant = 'body1'>{report.dateTime}</Typography>
+                                    </Card>
+                                </Grid>
+                            ))
+                        }
                     </Grid>
                 </Container>
             }

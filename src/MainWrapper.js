@@ -1,6 +1,6 @@
 import {useState, Fragment} from 'react'
 import clsx from 'clsx';
-import {Button, Container, Divider, IconButton, makeStyles, useTheme} from '@material-ui/core'
+import {Button, Container, Divider, IconButton, makeStyles, useTheme, MenuItem} from '@material-ui/core'
 import Drawer from '@material-ui/core/Drawer'
 import Typography from '@material-ui/core/Typography'
 import List from '@material-ui/core/List'
@@ -18,9 +18,8 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import AccountCircleOutlinedIcon from '@material-ui/icons/AccountCircleOutlined';
 import TextField from '@material-ui/core/TextField';
-import Autocomplete from '@material-ui/lab/Autocomplete';
 
-const drawerWidth = 260;
+const drawerWidth = 250;
 
 const useStyles = makeStyles((theme) => {
     return {
@@ -93,6 +92,10 @@ const useStyles = makeStyles((theme) => {
         },
         avatar: {
             marginLeft: theme.spacing(2)
+        },
+        icon: {
+            width: theme.spacing(4),
+            height: theme.spacing(4),
         },
         drawerOpen: {
             width: drawerWidth,
@@ -209,24 +212,22 @@ export default function MainWrapper({children, credential, setCredential, sensor
                     </Typography>
                     {credential != null ?
                         <Fragment>
-                            <Autocomplete
-                                id="location-selector"
-                                style={{ width: 300 }}
-                                options={options}
-                                autoHighlight
+                            <TextField
+                                id="location"
+                                style={{ width: 150 }}
+                                color = 'primary'
+                                fullWidth
+                                select
                                 value={sensorLocation}
-                                onChange={(event, newValue) => {
-                                    setSensorLocation(newValue);
-                                }}
-                                renderOption={(option) => (
-                                    <span>{option}</span>
-                                )}
-                                //inputValue={inputValue}
-                                //onInputChange={(event, newInputValue) => {
-                                //setInputValue(newInputValue);
-                                //}}
-                                renderInput={(params) => <TextField {...params} variant="outlined" />}
-                            />
+                                onChange={(e) => setSensorLocation(e.target.value)}
+                                variant="outlined"
+                                >
+                                {['Calumpit', 'Malolos', 'Hagonoy', 'Paombong'].map((option) => (
+                                    <MenuItem key={option} value={option}>
+                                        {option}
+                                    </MenuItem>
+                                ))}
+                            </TextField>
                             <Typography>{`${credential.firstName} ${credential.lastName}`}</Typography>
                             <Avatar className = {classes.avatar} onClick = {(e) => setAnchorEl(e.currentTarget)}/>
                         </Fragment> :
@@ -269,7 +270,7 @@ export default function MainWrapper({children, credential, setCredential, sensor
                 classes={{paper: classes.drawerPaper}}
             >
                 <div className={classes.drawerHeader}>
-                    <Avatar src = 'img/logo.png'/>
+                    <Avatar src = 'img/logo.png' className = {classes.icon}/>
                     <Typography variant = 'h5' className = {classes.title}>
                         Flood Safe
                     </Typography>

@@ -1,10 +1,13 @@
-import { Backdrop, Button, Card, CardContent, Container, Divider, Fade, Grid, makeStyles, Modal, TextField } from '@material-ui/core'
+import { Backdrop, Button, Card, CardContent, Container, MenuItem, Divider, Fade, Grid, makeStyles, Modal, TextField } from '@material-ui/core'
 import Typography from '@material-ui/core/Typography'
 import { useState } from 'react'
 import { useHistory } from 'react-router'
 import { serverUrl } from '../shared/serverUrl'
 
 const useStyles = makeStyles((theme) => ({
+    container: {
+        marginTop: 100
+    },
     field: {
       marginTop: 20,
       marginBottom: 20,
@@ -22,13 +25,13 @@ const useStyles = makeStyles((theme) => ({
     },
     paper: {
         backgroundColor: theme.palette.background.paper,
-        border: '2px solid #000',
         boxShadow: theme.shadows[5],
         padding: theme.spacing(2, 4, 3),
+        borderRadius: 10
     },
 }));
 
-export default function LogInPage({setCredential}) {
+export default function LogInPage({setCredential, setSensorLocation}) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [emailError, setEmailError] = useState(false);
@@ -39,32 +42,22 @@ export default function LogInPage({setCredential}) {
     const [newEmail, setNewEemail] = useState('');
     const [newPassword, setNewPassword] = useState('');
     const [contactNo, setContactNo] = useState('');
+    const [sensorLocation, setLocation] = useState('');
+
     const [firstNameError, setFirstNameError] = useState(false);
     const [lastNameError, setLastNameError] = useState(false);
     const [newEmailError, setNewEmailError] = useState(false);
     const [newPasswordError, setNewPasswordError] = useState(false);
     const [contactNoError, setContactNoError] = useState(false);
+    const [locationNoError, setLocationNoError] = useState(false);
 
     const [open, setOpen] = useState(false);
     const history = useHistory();
     const classes = useStyles();
 
-    const handleLogin = (e) => {
-        e.preventDefault();
-        setEmailError(false);
-        setPasswordError(false);
-    
-        if(email === '') {
-            setEmailError(true);
-        }
-        if(password === '') {
-            setPasswordError(true);
-        }
-    
-        if(email && password) {
-            const abortCont = new AbortController();
-
-            fetch(`${serverUrl}users?password=${password}&&email=${email}`, { signal: abortCont.signal })
+    const login = (email, password) => {
+        const abortCont = new AbortController();
+        fetch(`${serverUrl}users?password=${password}&&email=${email}`, { signal: abortCont.signal })
             .then(res => {
               if (!res.ok) {
                 throw Error('App can\'t perform verification');
@@ -74,6 +67,7 @@ export default function LogInPage({setCredential}) {
             .then(match => {
                 if(match.length === 1) {
                     setCredential(match[0]);
+                    setSensorLocation(match[0].location);
                     history.push('/home');
                 }
                 else{
@@ -89,6 +83,22 @@ export default function LogInPage({setCredential}) {
                 console.log(err.message);
               }
             });
+    }
+
+    const handleLogin = (e) => {
+        e.preventDefault();
+        setEmailError(false);
+        setPasswordError(false);
+    
+        if(email === '') {
+            setEmailError(true);
+        }
+        if(password === '') {
+            setPasswordError(true);
+        }
+    
+        if(email && password) {
+            login(email, password);
         }
     }
 
@@ -99,6 +109,7 @@ export default function LogInPage({setCredential}) {
         setNewEmailError(false);
         setNewPasswordError(false);
         setContactNoError(false);
+        setLocationNoError(false);
     
         if(firstName === '') {
             setFirstNameError(true);
@@ -115,8 +126,11 @@ export default function LogInPage({setCredential}) {
         if(contactNo === '') {
             setContactNoError(true);
         }
+        if(sensorLocation === '') {
+            setLocationNoError(true);
+        }
     
-        if(firstName && lastName && newEmail && newPassword && contactNo) {
+        if(firstName && lastName && newEmail && newPassword && contactNo && sensorLocation) {
           fetch(`${serverUrl}users`, {
             method: 'POST',
             headers: {"Content-type": "application/json"},
@@ -126,16 +140,18 @@ export default function LogInPage({setCredential}) {
                 email: newEmail,
                 password: newPassword,
                 contactNo,
-                type: "standard"
+                type: "standard",
+                location: sensorLocation
             })
           }).then(() => {
               setOpen(false);
+              login(newEmail, newPassword);
           })
         }
     }
 
     return (
-        <Container>
+        <Container className = {classes.container}>
             <Grid container>
                 <Grid item xs={12} md={5} key = 'description'>
                     <Typography variant = 'h2'>Flood Safe</Typography>
@@ -164,6 +180,7 @@ export default function LogInPage({setCredential}) {
                                     fullWidth
                                     error = {passwordError}
                                     value = {password}
+                                    type = 'password'
                                 />
                                 <Button
                                 type = 'submit' 
@@ -213,7 +230,7 @@ export default function LogInPage({setCredential}) {
                         <Divider/>
                         <form noValidate autoComplete = 'off' onSubmit = {handleSignIn}>
                             <Grid container>
-                                <Grid item xs={12} md={6} key = 'firstName'>
+                                <Grid item xs={12} key = 'firstName'>
                                     <TextField
                                         onChange = {(e) => setFirstName(e.target.value)}
                                         className = {classes.field}
@@ -225,7 +242,7 @@ export default function LogInPage({setCredential}) {
                                         value = {firstName}
                                     />
                                 </Grid>
-                                <Grid item xs={12} md={6} key = 'lastName'>
+                                <Grid item xs={12} key = 'lastName'>
                                     <TextField
                                         onChange = {(e) => setLastName(e.target.value)}
                                         className = {classes.field}
@@ -259,6 +276,7 @@ export default function LogInPage({setCredential}) {
                                         fullWidth
                                         error = {newPasswordError}
                                         value = {newPassword}
+                                        type = 'password'
                                     />
                                 </Grid>
                                 <Grid item xs={12} key = 'contact'>
@@ -272,6 +290,25 @@ export default function LogInPage({setCredential}) {
                                         error = {contactNoError}
                                         value = {contactNo}
                                     />
+                                </Grid>
+                                <Grid item xs={12} key = 'location'>
+                                    <TextField
+                                        id="location"
+                                        color = 'primary'
+                                        fullWidth
+                                        select
+                                        label="Location"
+                                        value={sensorLocation}
+                                        onChange={(e) => setLocation(e.target.value)}
+                                        variant="outlined"
+                                        >
+                                        {['Calumpit', 'Malolos', 'Hagonoy', 'Paombong'].map((option) => (
+                                            <MenuItem key={option} value={option}>
+                                                {option}
+                                            </MenuItem>
+                                        ))}
+                                        error = {locationNoError}
+                                    </TextField>
                                 </Grid>
                                 <Grid item xs={12} key = 'submit'>
                                     <Button

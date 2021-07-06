@@ -7,7 +7,8 @@
       "email": "juandelacruz@gmail.com",
       "password": "1234",
       "contactNo": "09345832498",
-      "type": "standard"
+      "type": "standard",
+      "location": "Hagonoy"
     },
     {
       "firstName": "Rahino",
@@ -16,34 +17,8 @@
       "password": "1234",
       "contactNo": "09673453445",
       "type": "standard",
-      "id": 2
-    },
-    {
-      "firstName": "Dane Andrei",
-      "lastName": "Agoyaoy",
-      "email": "agoyaoydane03@gmail.com ",
-      "password": "123456789",
-      "contactNo": "09993137810",
-      "type": "standard",
-      "id": 3
-    },
-    {
-      "firstName": "Dane Andrei",
-      "lastName": "Agoyaoy",
-      "email": "agoyaoydane03@gmail.com ",
-      "password": "123456789",
-      "contactNo": "09993137810",
-      "type": "standard",
-      "id": 4
-    },
-    {
-      "firstName": "Dane",
-      "lastName": "Agoyaoy",
-      "email": "agoyaoydane03@gmail.com",
-      "password": "123456789",
-      "contactNo": "099933137810",
-      "type": "standard",
-      "id": 5
+      "id": 2,
+      "location": "Malolos"
     },
     {
       "firstName": "Ira",
@@ -52,7 +27,8 @@
       "password": "Ira1234",
       "contactNo": "09651111111",
       "type": "standard",
-      "id": 6
+      "id": 3,
+      "location": "Calumpit"
     }
   ],
   "reports": [
@@ -61,28 +37,28 @@
       "heading": "TYPHOON VICKY",
       "dateTime": "September 15, 2021 8:30am",
       "content": "Lorem ipsum dolor sit amet, consectetur adpiscing elit",
-      "uri": ""
+      "uri": "requestBanner.jpg"
     },
     {
       "id": 2,
       "heading": "EMERGENCY ALERT",
       "dateTime": "September 14, 2021 8:30am",
       "content": "Lorem ipsum dolor sit amet, consectetur adpiscing elit",
-      "uri": ""
+      "uri": "requestBanner.jpg"
     },
     {
       "id": 3,
       "heading": "STORM SURGE",
       "dateTime": "September 13, 2021 8:30am",
       "content": "Lorem ipsum dolor sit amet, consectetur adpiscing elit",
-      "uri": ""
+      "uri": "requestBanner.jpg"
     },
     {
       "id": 4,
       "heading": "FLASH FLOOD",
       "dateTime": "September 12, 2021 8:30am",
       "content": "Lorem ipsum dolor sit amet, consectetur adpiscing elit",
-      "uri": ""
+      "uri": "requestBanner.jpg"
     }
   ],
   "statistics": [
