@@ -4,9 +4,7 @@ import { Card } from "@material-ui/core";
 
 function Graph({data}) {
     return (
-        <Card>
-            <Line data={data} />
-        </Card>
+        <Line data={data} />
     )
 }
 

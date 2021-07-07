@@ -39,7 +39,7 @@ export default function LogInPage({setCredential, setSensorLocation}) {
 
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
-    const [newEmail, setNewEemail] = useState('');
+    const [newEmail, setNewEmail] = useState('');
     const [newPassword, setNewPassword] = useState('');
     const [contactNo, setContactNo] = useState('');
     const [sensorLocation, setLocation] = useState('');
@@ -198,7 +198,7 @@ export default function LogInPage({setCredential, setSensorLocation}) {
                                 onClick = {() => {
                                     setFirstName('');
                                     setLastName('');
-                                    setNewEemail('');
+                                    setNewEmail('');
                                     setNewPassword('');
                                     setContactNo('');
                                     setOpen(true);
@@ -256,7 +256,7 @@ export default function LogInPage({setCredential, setSensorLocation}) {
                                 </Grid>
                                 <Grid item xs={12} key = 'email'>
                                     <TextField
-                                        onChange = {(e) => setNewEemail(e.target.value)}
+                                        onChange = {(e) => setNewEmail(e.target.value)}
                                         className = {classes.field}
                                         label = 'Email Address'
                                         variant = 'outlined'

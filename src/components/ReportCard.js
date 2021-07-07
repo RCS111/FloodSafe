@@ -7,7 +7,7 @@ export default function NoteCard({report}) {
         <Grid container spacing = {1}>
             <Grid item xs = {2}>
                 <Card>
-                    <img src = {`${serverUrl}images/${report.uri}`} alt = 'picture' width = '100%'/>
+                    <img src = {`${serverUrl}images/${report.uri}`} width = '100%'/>
                 </Card>
             </Grid>
             <Grid item xs = {10}>

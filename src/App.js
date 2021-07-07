@@ -19,6 +19,7 @@ import './index.css';
 import { amber, blue } from '@material-ui/core/colors';
 import LogInPage from './pages/LogInPage';
 import { useState } from 'react';
+import SettingsPage from './pages/SettingsPage';
 
 const theme = createMuiTheme({
   palette: {
@@ -31,7 +32,7 @@ const theme = createMuiTheme({
     fontWeightRegular: 500,
     fontWeightMedium: 600,
     fontWeightBold: 700,
-  }
+  },
 });
 
 function App() {
@@ -46,10 +47,10 @@ function App() {
             <MainWrapper credential = {credential} setCredential = {setCredential} sensorLocation = {sensorLocation} setSensorLocation = {setSensorLocation}>
               <Switch>
                 <Route exact path = "/">
-                  <HomePage/>
+                  <HomePage sensorLocation = {sensorLocation}/>
                 </Route>
                 <Route exact path = "/home">
-                  <HomePage/>
+                  <HomePage sensorLocation = {sensorLocation}/>
                 </Route>
                 <Route exact path = "/reports">
                   <ReportPage/>
@@ -81,6 +82,9 @@ function App() {
                 </Route>
                 <Route exact path = "/member">
                   <MemberPage/>
+                </Route>
+                <Route exact path = "/settings">
+                  <SettingsPage credential = {credential}/>
                 </Route>
                 <Route path = "*">
                   <NotFoundPage/>

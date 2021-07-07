@@ -1,4 +1,4 @@
-import { Container, Divider, Grid, makeStyles, Typography } from "@material-ui/core"
+import { Container, Divider, Typography } from "@material-ui/core"
 import React from 'react'
 import {serverUrl} from '../shared/serverUrl'
 import useFetch from '../shared/useFetch'
@@ -14,7 +14,7 @@ function ReportViewer() {
             { error && <Typography>{ error }</Typography> }
             { isPending && <Loading/> }
             {reports && <Container>
-                <img src = {`${serverUrl}images/${reports[0].uri}`} alt = 'picture' width = '100%' />
+                <img src = {`${serverUrl}images/${reports[0].uri}`} width = '100%' />
                 <Typography variant = 'h4'>{reports[0].heading}</Typography>
                 <Typography variant = 'h6'>{reports[0].datetime}</Typography>
                 <Divider />

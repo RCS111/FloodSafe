@@ -1,34 +1,47 @@
-import { Container, FormControlLabel, Grid, makeStyles, Radio, RadioGroup, Typography } from "@material-ui/core";
+import { Container, Grid, makeStyles, Typography, Card, CardHeader, CardContent, Button, ButtonGroup, useTheme } from "@material-ui/core";
 import { useState } from "react";
 import Graph from "../components/Graph";
 import { serverUrl } from "../shared/serverUrl";
 import useFetch from "../shared/useFetch";
 import Loading from '../components/Loading';
 
-function getData(sensor, range) {
+function getLevel(sensor, range) {
     var levels = [];
+    var datetime = [];
+
+    if(range === 'Day')
+        sensor.points.slice(144, 168).forEach(point => {levels.push(point.level); datetime.push((new Date(point.datetime)).toLocaleString ());});
+    else
+        sensor.points.slice(0, 168).forEach(point => {levels.push(point.level); datetime.push((new Date(point.datetime)).toLocaleString ());});
+    
+    return {levels, datetime};
+}
+
+function getRate(sensor, range) {
     var rate = [];
     var datetime = [];
 
     if(range === 'Day')
-        sensor.points.slice(0, 24).forEach(point => {levels.push(point.level); rate.push(point.rate); datetime.push((new Date(point.datetime)).toLocaleString ());});
+        sensor.points.slice(144, 168).forEach(point => {rate.push(point.rate); datetime.push((new Date(point.datetime)).toLocaleString ());});
     else
-        sensor.points.slice(0, 168).forEach(point => {levels.push(point.level); rate.push(point.rate); datetime.push((new Date(point.datetime)).toLocaleString ());});
+        sensor.points.slice(0, 168).forEach(point => {rate.push(point.rate); datetime.push((new Date(point.datetime)).toLocaleString ());});
     
-    return {levels, rate, datetime};
+    return {rate, datetime};
 }
 
-const useStyles = makeStyles(() => {
+const useStyles = makeStyles((theme) => {
     return {
-        heading: {
-            marginBottom: '20px'
+        cardHeader: {
+            backgroundColor: theme.palette.primary.light
         }
     }
 });
 
 const StatisticsPage = ({sensorLocation}) => {
+    const theme = useTheme();
     const classes = useStyles();
-    const [range, setRange] = useState('Day');
+    const [levelRange, setLevelRange] = useState('Day');
+    const [rateRange, setRateRange] = useState('Day');
     const { error, isPending, data: sensor } = useFetch(`${serverUrl}sensors?location=${sensorLocation}`);
 
     if(error) {
@@ -36,51 +49,74 @@ const StatisticsPage = ({sensorLocation}) => {
     } else if (isPending) {
         return (<Loading/>)
     } else if (sensor) {
-        var data = getData(sensor[0], range);
+        var level = getLevel(sensor[0], levelRange);
+        var rate = getRate(sensor[0], rateRange);
         return (
-            <Container align = 'center'>
-                <Grid container>
-                    <Grid item xs={12}>
-                        <RadioGroup value = {range} onChange = {e => setRange(e.target.value)}>
-                            <FormControlLabel value = 'Day' control = {<Radio />} label = 'Day'/>
-                            <FormControlLabel value = 'Week' control = {<Radio />} label = 'Week'/>
-                        </RadioGroup>
-                    </Grid>
-                    <Grid item xs={12}>
-                        <Typography variant = 'h4' className = {classes.heading}>Flood Level</Typography>
-                        <Graph data = {
-                            {
-                                labels: data.datetime,
-                                datasets: [
+            <Container>
+                <Grid container spacing = {3}>
+                    <Grid item xs={12} md = {12}>
+                        <Card>
+                            <CardHeader
+                                className = {classes.cardHeader} 
+                                title = {<Typography variant = 'h4'>Flood Level</Typography>}
+                                subheader = {levelRange}
+                                action={
+                                    <ButtonGroup variant="contained" color="primary">
+                                        <Button onClick = {() => setLevelRange('Day')} variant = {levelRange === 'Day' ? 'contained' : 'outlined'}>DAY</Button>
+                                        <Button onClick = {() => setLevelRange('Week')} variant = {levelRange === 'Week' ? 'contained' : 'outlined'}>WEEK</Button>
+                                    </ButtonGroup>
+                                }
+                            />
+                            <CardContent>
+                                <Graph data = {
                                     {
-                                        label: 'Time',
-                                        data: data.levels,
-                                        fill: false,
-                                        backgroundColor: 'rgb(255, 99, 132)',
-                                        borderColor: 'rgba(255, 99, 132, 0.2)',
-                                        yAxisID: 'y-axis-1',
+                                        labels: level.datetime,
+                                        datasets: [
+                                            {
+                                                label: 'Flood Level in ft',
+                                                data: level.levels,
+                                                fill: false,
+                                                backgroundColor: theme.palette.secondary.main,
+                                                borderColor: theme.palette.secondary.dark,
+                                                yAxisID: 'y-axis-1',
+                                            }
+                                        ],
                                     }
-                                ],
-                            }
-                        }/>
+                                }/>
+                            </CardContent>
+                        </Card>
                     </Grid>
-                    <Grid item xs={12}>
-                        <Typography variant = 'h4' className = {classes.heading}>Flow Rate</Typography>
-                        <Graph data = {
-                            {
-                                labels: data.datetime,
-                                datasets: [
+                    <Grid item xs={12} md = {12}>
+                        <Card>
+                            <CardHeader 
+                                className = {classes.cardHeader} 
+                                title = {<Typography variant = 'h4'>Flow Rate</Typography>}
+                                subheader = {rateRange}
+                                action={
+                                    <ButtonGroup variant="contained" color={"primary"}>
+                                        <Button onClick = {() => setRateRange('Day')} variant = {rateRange === 'Day' ? 'contained' : 'outlined'}>DAY</Button>
+                                        <Button onClick = {() => setRateRange('Week')} variant = {rateRange === 'Week' ? 'contained' : 'outlined'}>WEEK</Button>
+                                    </ButtonGroup>
+                                }
+                            />
+                            <CardContent>
+                                <Graph data = {
                                     {
-                                        label: 'Time',
-                                        data: data.rate,
-                                        fill: false,
-                                        backgroundColor: 'rgb(255, 99, 132)',
-                                        borderColor: 'rgba(255, 99, 132, 0.2)',
-                                        yAxisID: 'y-axis-1',
+                                        labels: rate.datetime,
+                                        datasets: [
+                                            {
+                                                label: 'Flood Rate in m/s',
+                                                data: rate.rate,
+                                                fill: false,
+                                                backgroundColor: theme.palette.secondary.main,
+                                                borderColor: theme.palette.secondary.dark,
+                                                yAxisID: 'y-axis-1',
+                                            }
+                                        ],
                                     }
-                                ],
-                            }
-                        }/>
+                                }/>
+                            </CardContent>
+                        </Card>
                     </Grid>
                 </Grid>
             </Container>

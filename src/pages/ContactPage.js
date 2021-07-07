@@ -1,6 +1,16 @@
-import { Container, Grid, Card, Typography, TextField, Button } from "@material-ui/core";
+import { Container, Grid, Card, makeStyles, Typography, TextField, Button } from "@material-ui/core";
+
+const useStyles = makeStyles(() => {
+    return {
+        heading: {
+            marginBottom: '20px'
+        },
+    }
+});
 
 export default function ContactPage() {
+    const classes = useStyles();
+
     return (
         <Container>
             <Grid container spacing = {3}>

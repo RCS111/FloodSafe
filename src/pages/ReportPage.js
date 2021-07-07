@@ -7,14 +7,19 @@ import {Link} from 'react-router-dom';
 
 const useStyles = makeStyles(() => {
     return {
-        heading: {
-            marginBottom: '20px'
+        mainGrid: {
+            width: '100vw',
+            height: '100vh',
+            spacing: 0,
+            justify: 'space-around'
         }
     }
 });
 
 const ReportPage = () => {
     const { error, isPending, data: reports } = useFetch(`${serverUrl}reports`);
+    const classes = useStyles();
+
     return (
         <div>
             { error && <Typography>{ error }</Typography> }

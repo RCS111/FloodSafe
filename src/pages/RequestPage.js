@@ -16,7 +16,6 @@ const RequestPage = ({credential}) => {
     const [message, setMessage] = useState('');
     const [addressError, setAddressError] = useState(false);
     const [messageError, setMessageError] = useState(false);
-    const classes = useStyles();
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -58,7 +57,7 @@ const RequestPage = ({credential}) => {
                 <Grid container spacing = {3}>
                     <Grid item xs = {12} align = 'center'>
                         <Card>
-                            <img src = 'img/requestBanner.jpg' width = '100%' background-position = 'center' alt = 'Banner'/>
+                            <img src = 'img/requestBanner.jpg' width = '100%' height = '300px' style = {{objectFit: 'cover'}} background-position = 'center' alt = 'Banner'/>
                         </Card>
                     </Grid>
                     <Grid item xs = {12}>

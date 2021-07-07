@@ -1,25 +1,24 @@
 import {useState, Fragment} from 'react'
 import clsx from 'clsx';
-import {Button, Container, Divider, IconButton, makeStyles, useTheme, MenuItem} from '@material-ui/core'
+import {Button, Popover, Card, CardHeader,CardContent, Divider, IconButton, makeStyles, useTheme, MenuItem} from '@material-ui/core'
 import Drawer from '@material-ui/core/Drawer'
 import Typography from '@material-ui/core/Typography'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemIcon from '@material-ui/core/ListItemIcon'
 import ListItemText from '@material-ui/core/ListItemText'
-import {HomeOutlined, CallOutlined, AssessmentOutlined, TimelineOutlined, MapOutlined, InfoOutlined, ContactMailOutlined, LiveHelpOutlined, PeopleAltOutlined} from '@material-ui/icons'
+import {HomeOutlined, CallOutlined, AssessmentOutlined, TimelineOutlined, MapOutlined, InfoOutlined, ContactMailOutlined, LiveHelpOutlined, PeopleAltOutlined, SettingsOutlined, HelpOutlined} from '@material-ui/icons'
 import { useHistory, useLocation } from 'react-router'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import Avatar from '@material-ui/core/Avatar'
 import MenuIcon from '@material-ui/icons/Menu'
-import Menu from '@material-ui/core/Menu'
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import AccountCircleOutlinedIcon from '@material-ui/icons/AccountCircleOutlined';
 import TextField from '@material-ui/core/TextField';
+import { serverUrl } from './shared/serverUrl'
 
-const drawerWidth = 250;
+const drawerWidth = 270;
 
 const useStyles = makeStyles((theme) => {
     return {
@@ -51,10 +50,11 @@ const useStyles = makeStyles((theme) => {
         },
         drawer: {
             width: drawerWidth,
-            flexShrink: 0,
+            flexShrink: 0
         },
         drawerPaper: {
-            width: drawerWidth
+            width: drawerWidth,
+            backgroundImage: `url("${serverUrl}images/drawerBackground.jpg")`
         },
         drawerHeader: {
           display: 'flex',
@@ -66,12 +66,14 @@ const useStyles = makeStyles((theme) => {
         },
         content: {
           flexGrow: 1,
-          padding: theme.spacing(3),
+          //padding: theme.spacing(3),
           transition: theme.transitions.create('margin', {
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.leavingScreen,
           }),
           marginLeft: -drawerWidth,
+          backgroundImage: `url("${serverUrl}images/contentBackground.jpg")`,
+          backgroundSize: 'fill',
         },
         contentShift: {
           transition: theme.transitions.create('margin', {
@@ -82,42 +84,35 @@ const useStyles = makeStyles((theme) => {
         },
 
         active: {
-            background: '#F4F4F4'
+            background: theme.palette.primary.light
         },
         title: {
-            padding: theme.spacing(2)
+            padding: theme.spacing(2),
+            color: 'white'
         },
         appTitle: {
             flexGrow: 1
         },
         avatar: {
-            marginLeft: theme.spacing(2)
+            marginLeft: theme.spacing(2),
+            color: theme.palette.getContrastText(theme.palette.secondary.light),
+            backgroundColor: theme.palette.secondary.light
         },
         icon: {
             width: theme.spacing(4),
             height: theme.spacing(4),
         },
-        drawerOpen: {
-            width: drawerWidth,
-            transition: theme.transitions.create('width', {
-              easing: theme.transitions.easing.sharp,
-              duration: theme.transitions.duration.enteringScreen,
-            }),
+        cardHeader: {
+            backgroundColor: theme.palette.primary.light
         },
-        drawerClose: {
-            transition: theme.transitions.create('width', {
-              easing: theme.transitions.easing.sharp,
-              duration: theme.transitions.duration.leavingScreen,
-            }),
-            overflowX: 'hidden',
-            width: theme.spacing(7) + 1,
-            [theme.breakpoints.up('sm')]: {
-              width: theme.spacing(9) + 1,
-            },
+        locationSelector: {
+            width: 150,
         },
-        button: {
-            marginTop: 20,
-            marginBottom: 20
+        listItem: {
+            color: 'white'
+        },
+        dialogPaper: {
+            borderRadius: '10px'
         }
     }
 })
@@ -131,6 +126,7 @@ export default function MainWrapper({children, credential, setCredential, sensor
     const theme = useTheme();
     const [open, setOpen] = useState(false);
     const [anchorEl, setAnchorEl] = useState(null);
+    const [showDialog, setShowDialog] = useState(false);
 
     const handleDrawerOpen = () => {
         setOpen(true);
@@ -143,48 +139,53 @@ export default function MainWrapper({children, credential, setCredential, sensor
     const menuItems = [
         {
             text: 'Home',
-            icon: <HomeOutlined color='secondary'/>,
+            icon: <HomeOutlined style = {{color: 'white'}}/>,
             path: '/home'
         },
         {
             text: 'Reports',
-            icon: <AssessmentOutlined color='secondary'/>,
+            icon: <AssessmentOutlined style = {{color: 'white'}}/>,
             path: '/reports'
         },
         {
             text: 'Statistics',
-            icon: <TimelineOutlined color='secondary'/>,
+            icon: <TimelineOutlined style = {{color: 'white'}}/>,
             path: '/statistics'
         },
         {
             text: 'Request',
-            icon: <CallOutlined color='secondary'/>,
+            icon: <CallOutlined style = {{color: 'white'}}/>,
             path: '/request'
         },
         {
             text: 'Maps',
-            icon: <MapOutlined color='secondary'/>,
+            icon: <MapOutlined style = {{color: 'white'}}/>,
             path: '/maps'
         },
         {
             text: 'About',
-            icon: <InfoOutlined color='secondary'/>,
+            icon: <InfoOutlined style = {{color: 'white'}}/>,
             path: '/about'
         },
         {
             text: 'Contact',
-            icon: <ContactMailOutlined color='secondary'/>,
+            icon: <ContactMailOutlined style = {{color: 'white'}}/>,
             path: '/contact'
         },
         {
             text: 'Support',
-            icon: <LiveHelpOutlined color='secondary'/>,
+            icon: <LiveHelpOutlined style = {{color: 'white'}}/>,
             path: '/support'
         },
         {
             text: 'Member',
-            icon: <PeopleAltOutlined color='secondary'/>,
+            icon: <PeopleAltOutlined style = {{color: 'white'}}/>,
             path: '/member'
+        },
+        {
+            text: 'Settings',
+            icon: <SettingsOutlined style = {{color: 'white'}}/>,
+            path: '/settings'
         },
     ]
 
@@ -207,29 +208,30 @@ export default function MainWrapper({children, credential, setCredential, sensor
                     >
                         <MenuIcon/>
                     </IconButton>
-                    <Typography className = {classes.appTitle} variant = 'h6' noWrap>
+                    <Typography className = {classes.appTitle} variant = 'h5' noWrap>
                         FloodSafe
                     </Typography>
                     {credential != null ?
                         <Fragment>
                             <TextField
                                 id="location"
-                                style={{ width: 150 }}
                                 color = 'primary'
                                 fullWidth
                                 select
                                 value={sensorLocation}
                                 onChange={(e) => setSensorLocation(e.target.value)}
                                 variant="outlined"
+                                className = {classes.locationSelector}
                                 >
-                                {['Calumpit', 'Malolos', 'Hagonoy', 'Paombong'].map((option) => (
+                                {options.map((option) => (
                                     <MenuItem key={option} value={option}>
                                         {option}
                                     </MenuItem>
                                 ))}
                             </TextField>
-                            <Typography>{`${credential.firstName} ${credential.lastName}`}</Typography>
-                            <Avatar className = {classes.avatar} onClick = {(e) => setAnchorEl(e.currentTarget)}/>
+                            <Avatar className = {classes.avatar} onClick = {(e) => {setAnchorEl(e.currentTarget); setShowDialog(true);}}>
+                                {`${credential.firstName[0].toUpperCase()}${credential.lastName[0].toUpperCase()}`}
+                            </Avatar>
                         </Fragment> :
                         <Button 
                             color = 'secondary' 
@@ -243,23 +245,42 @@ export default function MainWrapper({children, credential, setCredential, sensor
             </AppBar>
 
             {
-                credential != null ? <Menu
-                    id = 'account'
-                    anchorEl = {anchorEl}
-                    keppMounted
-                    open = {Boolean(anchorEl)}
-                    onClose = {() => setAnchorEl(null)}
+                credential != null ? <Popover 
+                    id = 'popover'
+                    open = {showDialog}
+                    anchorEl = {anchorEl} 
                     getContentAnchorEl={null}
                     anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
                     transformOrigin={{ vertical: "top", horizontal: "center" }}
+                    onClose = {() => {setShowDialog(false); setAnchorEl(null);}}
+                    classes = {{paper: classes.dialogPaper}}
                 >
-                    <Container align ='center'>
-                        <Avatar className = {classes.avatar}/>
-                        <Typography variant = 'h6'>{`${credential.firstName} ${credential.lastName}`}</Typography>
-                        <Typography variant = 'p'>{`${credential.email}`}</Typography>
-                        <Button color = 'secondary' variant = 'contained' onClick = {() => {setCredential(null); setAnchorEl(null);}} fullWidth className = {classes.button}>Log Out</Button>
-                    </Container>
-                </Menu> : null
+                    <Card style = {{width: '250px'}}>
+                        <CardHeader 
+                            avatar = {<Avatar></Avatar>}
+                            title = {<Typography variant = 'h6'>{`${credential.firstName} ${credential.lastName}`}</Typography>}
+                            subheader = {credential.email}
+                            className = {classes.cardHeader}
+                        />
+                        <CardContent style = {{padding: '0px'}}>
+                            <List>
+                                <ListItem button key = 'Settings' onClick = {() => {setShowDialog(false); history.push('/settings');}}>
+                                    <ListItemIcon><SettingsOutlined/></ListItemIcon>
+                                    <ListItemText primary = 'Profile' />
+                                </ListItem>
+                                <Divider/>
+                                <ListItem button key = 'Help' onClick = {() => {setShowDialog(false); history.push('/contact');}}>
+                                    <ListItemIcon><HelpOutlined/></ListItemIcon>
+                                    <ListItemText primary = 'Help' />
+                                </ListItem>
+                                <Divider/>
+                                <ListItem>
+                                    <Button color = 'secondary' variant = 'contained' onClick = {() => {setCredential(null); setAnchorEl(null);}} className = {classes.button} fullWidth>Log Out</Button>
+                                </ListItem>
+                            </List>
+                        </CardContent>
+                    </Card>
+                </Popover> : null
             }
 
             <Drawer
@@ -270,16 +291,18 @@ export default function MainWrapper({children, credential, setCredential, sensor
                 classes={{paper: classes.drawerPaper}}
             >
                 <div className={classes.drawerHeader}>
-                    <Avatar src = 'img/logo.png' className = {classes.icon}/>
+                    <img src = 'img/logo2.png' width = '20%'/>
                     <Typography variant = 'h5' className = {classes.title}>
-                        Flood Safe
+                        Floodsafe
                     </Typography>
                     <IconButton onClick={handleDrawerClose}>
-                        {theme.direction === 'ltr' ? <ChevronLeftIcon  /> : <ChevronRightIcon  />}
+                        {theme.direction === 'ltr' ? <ChevronLeftIcon style = {{color: 'white'}}/> : <ChevronRightIcon  style = {{color: 'white'}}/>}
                     </IconButton>
                 </div>
                 
-                <Button startIcon={<AccountCircleOutlinedIcon />} variant = 'contained' color = 'secondary'>{`${credential.firstName} ${credential.lastName}`}</Button>
+                <Card style = {{backgroundColor: theme.palette.secondary.light, margin: '10px', padding: '10px'}}>
+                    <Typography variant = 'h6' align = 'center'>{`${credential.firstName} ${credential.lastName}`}</Typography>
+                </Card>
                 <Divider />
                 <List>
                     {menuItems.slice(0, credential != null ? 5 : 4).map(item => (
@@ -290,23 +313,10 @@ export default function MainWrapper({children, credential, setCredential, sensor
                             className = {location.pathname === item.path ? classes.active : null}
                         >
                             <ListItemIcon>{item.icon}</ListItemIcon>
-                            <ListItemText primary = {item.text} />
+                            <ListItemText primary = {item.text} classes = {{primary: classes.listItem}}/>
                         </ListItem>
                     ))}
                 </List>
-                {/* <List>
-                    {menuItems.slice(4, 5).map(item => (
-                        <ListItem
-                            button
-                            key = {item.text}
-                            onClick = {() => history.push(item.path)}
-                            className = {location.pathname === item.path ? classes.active : null}
-                        >
-                            <ListItemIcon>{item.icon}</ListItemIcon>
-                            <ListItemText primary = {item.text} />
-                        </ListItem>
-                    ))}
-                </List> */}
                 <Divider />
                 <List>
                     {menuItems.slice(5, 9).map(item => (
@@ -317,7 +327,21 @@ export default function MainWrapper({children, credential, setCredential, sensor
                             className = {location.pathname === item.path ? classes.active : null}
                         >
                             <ListItemIcon>{item.icon}</ListItemIcon>
-                            <ListItemText primary = {item.text} />
+                            <ListItemText primary = {item.text} classes = {{primary: classes.listItem}}/>
+                        </ListItem>
+                    ))}
+                </List>
+                <Divider />
+                <List>
+                    {menuItems.slice(9, 10).map(item => (
+                        <ListItem
+                            button
+                            key = {item.text}
+                            onClick = {() => history.push(item.path)}
+                            className = {location.pathname === item.path ? classes.active : null}
+                        >
+                            <ListItemIcon>{item.icon}</ListItemIcon>
+                            <ListItemText primary = {item.text} classes = {{primary: classes.listItem}}/>
                         </ListItem>
                     ))}
                 </List>

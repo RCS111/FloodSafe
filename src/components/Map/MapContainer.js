@@ -1,6 +1,5 @@
 import "./MapContainer.css"
 
-import MapPanel from "./MapPanel/MapPanel"
 import Map from "./Map/Map"
 import MapNavBar from "./MapNavBar/MapNavBar";
 
