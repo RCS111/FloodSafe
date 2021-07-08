@@ -1,10 +1,10 @@
 import {useState, Fragment} from 'react'
 import clsx from 'clsx';
-import {Button, Popover, Card, CardHeader,CardContent, Divider, IconButton, makeStyles, useTheme, MenuItem} from '@material-ui/core'
+import {Button, Popover, Card, CardHeader,CardContent, Divider, IconButton, makeStyles, withStyles, useTheme, MenuItem } from '@material-ui/core'
 import Drawer from '@material-ui/core/Drawer'
 import Typography from '@material-ui/core/Typography'
 import List from '@material-ui/core/List'
-import ListItem from '@material-ui/core/ListItem'
+import MuiListItem from "@material-ui/core/ListItem";
 import ListItemIcon from '@material-ui/core/ListItemIcon'
 import ListItemText from '@material-ui/core/ListItemText'
 import {HomeOutlined, CallOutlined, AssessmentOutlined, TimelineOutlined, MapOutlined, InfoOutlined, ContactMailOutlined, LiveHelpOutlined, PeopleAltOutlined, SettingsOutlined, HelpOutlined} from '@material-ui/icons'
@@ -73,7 +73,10 @@ const useStyles = makeStyles((theme) => {
           }),
           marginLeft: -drawerWidth,
           backgroundImage: `url("${serverUrl}images/contentBackground.jpg")`,
-          backgroundSize: 'fill',
+          backgroundSize: 'cover',
+          backgroundRepeat: 'repeat-x',
+          backgroundPosition: 'right top',
+          backgroundAttachment: 'scroll'
         },
         contentShift: {
           transition: theme.transitions.create('margin', {
@@ -84,7 +87,7 @@ const useStyles = makeStyles((theme) => {
         },
 
         active: {
-            background: theme.palette.primary.light
+            background: 'rgba(3,169,244,0.6)',
         },
         title: {
             padding: theme.spacing(2),
@@ -113,9 +116,26 @@ const useStyles = makeStyles((theme) => {
         },
         dialogPaper: {
             borderRadius: '10px'
+        },
+        divider: {
+            background: 'rgba(255, 255, 255, 0.5)',
+            margin: '0px 10px'
         }
     }
 })
+
+const ListItem = withStyles({
+    root: {
+      "&:hover": {
+        backgroundColor: 'rgba(3,169,244,0.2)',
+        color: "white",
+        "& .MuiListItemIcon-root": {
+          color: "white"
+        }
+      }
+    },
+    selected: {}
+  })(MuiListItem);
 
 const options = ['Hagonoy', 'Paombong', 'Malolos', 'Calumpit'];
 
@@ -255,7 +275,7 @@ export default function MainWrapper({children, credential, setCredential, sensor
                     onClose = {() => {setShowDialog(false); setAnchorEl(null);}}
                     classes = {{paper: classes.dialogPaper}}
                 >
-                    <Card style = {{width: '250px'}}>
+                    <Card style = {{minimumWidth: '250px'}}>
                         <CardHeader 
                             avatar = {<Avatar></Avatar>}
                             title = {<Typography variant = 'h6'>{`${credential.firstName} ${credential.lastName}`}</Typography>}
@@ -266,7 +286,7 @@ export default function MainWrapper({children, credential, setCredential, sensor
                             <List>
                                 <ListItem button key = 'Settings' onClick = {() => {setShowDialog(false); history.push('/settings');}}>
                                     <ListItemIcon><SettingsOutlined/></ListItemIcon>
-                                    <ListItemText primary = 'Profile' />
+                                    <ListItemText primary = 'Edit Account' />
                                 </ListItem>
                                 <Divider/>
                                 <ListItem button key = 'Help' onClick = {() => {setShowDialog(false); history.push('/contact');}}>
@@ -303,7 +323,7 @@ export default function MainWrapper({children, credential, setCredential, sensor
                 <Card style = {{backgroundColor: theme.palette.secondary.light, margin: '10px', padding: '10px'}}>
                     <Typography variant = 'h6' align = 'center'>{`${credential.firstName} ${credential.lastName}`}</Typography>
                 </Card>
-                <Divider />
+                <Divider classes = {{root: classes.divider}}/>
                 <List>
                     {menuItems.slice(0, credential != null ? 5 : 4).map(item => (
                         <ListItem
@@ -317,7 +337,7 @@ export default function MainWrapper({children, credential, setCredential, sensor
                         </ListItem>
                     ))}
                 </List>
-                <Divider />
+                <Divider classes = {{root: classes.divider}}/>
                 <List>
                     {menuItems.slice(5, 9).map(item => (
                         <ListItem
@@ -331,7 +351,7 @@ export default function MainWrapper({children, credential, setCredential, sensor
                         </ListItem>
                     ))}
                 </List>
-                <Divider />
+                <Divider classes = {{root: classes.divider}}/>
                 <List>
                     {menuItems.slice(9, 10).map(item => (
                         <ListItem

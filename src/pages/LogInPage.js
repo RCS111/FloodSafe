@@ -48,8 +48,8 @@ export default function LogInPage({setCredential, setSensorLocation}) {
     const [lastNameError, setLastNameError] = useState(false);
     const [newEmailError, setNewEmailError] = useState(false);
     const [newPasswordError, setNewPasswordError] = useState(false);
-    const [contactNoError, setContactNoError] = useState(false);
-    const [locationNoError, setLocationNoError] = useState(false);
+    const [contactError, setContactError] = useState(false);
+    const [locationError, setLocationError] = useState(false);
 
     const [open, setOpen] = useState(false);
     const history = useHistory();
@@ -108,8 +108,8 @@ export default function LogInPage({setCredential, setSensorLocation}) {
         setLastNameError(false);
         setNewEmailError(false);
         setNewPasswordError(false);
-        setContactNoError(false);
-        setLocationNoError(false);
+        setContactError(false);
+        setLocationError(false);
     
         if(firstName === '') {
             setFirstNameError(true);
@@ -124,13 +124,13 @@ export default function LogInPage({setCredential, setSensorLocation}) {
             setNewPasswordError(true);
         }
         if(contactNo === '') {
-            setContactNoError(true);
+            setContactError(true);
         }
         if(sensorLocation === '') {
-            setLocationNoError(true);
+            setLocationError(true);
         }
     
-        if(firstName && lastName && newEmail && newPassword && contactNo && sensorLocation) {
+        if(!firstNameError && !lastNameError && !newEmailError && !newPasswordError && !contactError && !locationError) {
           fetch(`${serverUrl}users`, {
             method: 'POST',
             headers: {"Content-type": "application/json"},
@@ -287,7 +287,7 @@ export default function LogInPage({setCredential, setSensorLocation}) {
                                         variant = 'outlined'
                                         color = 'primary'
                                         fullWidth
-                                        error = {contactNoError}
+                                        error = {contactError}
                                         value = {contactNo}
                                     />
                                 </Grid>
@@ -307,7 +307,7 @@ export default function LogInPage({setCredential, setSensorLocation}) {
                                                 {option}
                                             </MenuItem>
                                         ))}
-                                        error = {locationNoError}
+                                        error = {locationError}
                                     </TextField>
                                 </Grid>
                                 <Grid item xs={12} key = 'submit'>

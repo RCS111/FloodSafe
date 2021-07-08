@@ -39,6 +39,16 @@
       "type": "standard",
       "location": "Malolos",
       "id": 4
+    },
+    {
+      "firstName": "Lelele ",
+      "lastName": "Lelele",
+      "email": "l@l.com",
+      "password": "llllll",
+      "contactNo": "09123456789",
+      "type": "standard",
+      "location": "Malolos",
+      "id": 5
     }
   ],
   "reports": [
@@ -46,28 +56,28 @@
       "id": 1,
       "heading": "TYPHOON VICKY",
       "dateTime": "September 15, 2021 8:30am",
-      "content": "Lorem ipsum dolor sit amet, consectetur adpiscing elit",
+      "content": "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolorem eos debitis, numquam officia tempora cupiditate? Dolorem inventore saepe id amet quisquam? Ea cumque debitis ad, quas porro eveniet alias praesentium.",
       "uri": "requestBanner.jpg"
     },
     {
       "id": 2,
       "heading": "EMERGENCY ALERT",
       "dateTime": "September 14, 2021 8:30am",
-      "content": "Lorem ipsum dolor sit amet, consectetur adpiscing elit",
+      "content": "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolorem eos debitis, numquam officia tempora cupiditate? Dolorem inventore saepe id amet quisquam? Ea cumque debitis ad, quas porro eveniet alias praesentium.",
       "uri": "requestBanner.jpg"
     },
     {
       "id": 3,
       "heading": "STORM SURGE",
       "dateTime": "September 13, 2021 8:30am",
-      "content": "Lorem ipsum dolor sit amet, consectetur adpiscing elit",
+      "content": "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolorem eos debitis, numquam officia tempora cupiditate? Dolorem inventore saepe id amet quisquam? Ea cumque debitis ad, quas porro eveniet alias praesentium.",
       "uri": "requestBanner.jpg"
     },
     {
       "id": 4,
       "heading": "FLASH FLOOD",
       "dateTime": "September 12, 2021 8:30am",
-      "content": "Lorem ipsum dolor sit amet, consectetur adpiscing elit",
+      "content": "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolorem eos debitis, numquam officia tempora cupiditate? Dolorem inventore saepe id amet quisquam? Ea cumque debitis ad, quas porro eveniet alias praesentium.",
       "uri": "requestBanner.jpg"
     }
   ],
@@ -463,7 +473,7 @@
         {
           "weather": "Thunderstorm",
           "temperature": 29.3,
-          "rate": 2.0,
+          "rate": 2,
           "level": 3.67,
           "datetime": "2021-07-04T07:00:00Z"
         },
@@ -526,7 +536,7 @@
         {
           "weather": "Sunny",
           "temperature": 27.47,
-          "rate": 2.0,
+          "rate": 2,
           "level": 4.21,
           "datetime": "2021-07-04T16:00:00Z"
         },
@@ -1468,7 +1478,7 @@
         },
         {
           "weather": "Sunny",
-          "temperature": 31.0,
+          "temperature": 31,
           "rate": 3.7,
           "level": 1.27,
           "datetime": "2021-07-03T06:00:00Z"
@@ -1574,7 +1584,7 @@
         {
           "weather": "Rain",
           "temperature": 27.74,
-          "rate": 3.0,
+          "rate": 3,
           "level": 2.02,
           "datetime": "2021-07-03T21:00:00Z"
         },
@@ -1658,7 +1668,7 @@
         {
           "weather": "Rain",
           "temperature": 28.46,
-          "rate": 4.0,
+          "rate": 4,
           "level": 4.01,
           "datetime": "2021-07-04T09:00:00Z"
         },
@@ -2036,7 +2046,7 @@
         {
           "weather": "Thunderstorm",
           "temperature": 29.72,
-          "rate": 5.0,
+          "rate": 5,
           "level": 3.43,
           "datetime": "2021-07-06T15:00:00Z"
         },
@@ -2114,7 +2124,7 @@
           "weather": "Rain",
           "temperature": 31.11,
           "rate": 5.2,
-          "level": 4.0,
+          "level": 4,
           "datetime": "2021-07-07T02:00:00Z"
         },
         {
@@ -2211,7 +2221,7 @@
         {
           "weather": "Rain",
           "temperature": 32.33,
-          "rate": 5.0,
+          "rate": 5,
           "level": 4.22,
           "datetime": "2021-07-07T16:00:00Z"
         },
@@ -2260,7 +2270,7 @@
         {
           "weather": "Thunderstorm",
           "temperature": 27.09,
-          "rate": 5.0,
+          "rate": 5,
           "level": 4.06,
           "datetime": "2021-07-07T23:00:00Z"
         },
@@ -2343,7 +2353,7 @@
         },
         {
           "weather": "Sunny",
-          "temperature": 30.0,
+          "temperature": 30,
           "rate": 5.54,
           "level": 3.42,
           "datetime": "2021-07-08T11:00:00Z"
@@ -2461,7 +2471,7 @@
         {
           "weather": "Sunny",
           "temperature": 29.54,
-          "rate": 1.0,
+          "rate": 1,
           "level": 2.62,
           "datetime": "2021-07-02T03:00:00Z"
         },
@@ -2692,7 +2702,7 @@
         {
           "weather": "Haze",
           "temperature": 32.6,
-          "rate": 3.0,
+          "rate": 3,
           "level": 2.84,
           "datetime": "2021-07-03T12:00:00Z"
         },
@@ -3377,7 +3387,7 @@
         },
         {
           "weather": "Haze",
-          "temperature": 32.0,
+          "temperature": 32,
           "rate": 2.53,
           "level": 2.39,
           "datetime": "2021-07-07T14:00:00Z"
@@ -3412,7 +3422,7 @@
         },
         {
           "weather": "Sunny",
-          "temperature": 31.0,
+          "temperature": 31,
           "rate": 2.62,
           "level": 2.35,
           "datetime": "2021-07-07T19:00:00Z"
@@ -3615,7 +3625,6 @@
         }
       ]
     },
-
     {
       "location": "Malolos",
       "points": [
@@ -3791,7 +3800,7 @@
           "weather": "Sunny",
           "temperature": 31.05,
           "rate": 4.87,
-          "level": 3.0,
+          "level": 3,
           "datetime": "2021-07-03T00:00:00Z"
         },
         {
@@ -3993,7 +4002,7 @@
         {
           "weather": "Haze",
           "temperature": 29.29,
-          "rate": 5.0,
+          "rate": 5,
           "level": 3.26,
           "datetime": "2021-07-04T05:00:00Z"
         },
@@ -4316,28 +4325,28 @@
           "weather": "Cloudy",
           "temperature": 31.18,
           "rate": 0.01,
-          "level": 1.0,
+          "level": 1,
           "datetime": "2021-07-06T03:00:00Z"
         },
         {
           "weather": "Rain",
           "temperature": 31.25,
           "rate": 0.01,
-          "level": 1.0,
+          "level": 1,
           "datetime": "2021-07-06T04:00:00Z"
         },
         {
           "weather": "Cloudy",
           "temperature": 31.24,
           "rate": 0.01,
-          "level": 1.0,
+          "level": 1,
           "datetime": "2021-07-06T05:00:00Z"
         },
         {
           "weather": "Rain",
           "temperature": 31.15,
           "rate": 0.02,
-          "level": 1.0,
+          "level": 1,
           "datetime": "2021-07-06T06:00:00Z"
         },
         {
@@ -4545,7 +4554,7 @@
         },
         {
           "weather": "Rain",
-          "temperature": 28.0,
+          "temperature": 28,
           "rate": 1.36,
           "level": 1.74,
           "datetime": "2021-07-07T12:00:00Z"
@@ -4798,12 +4807,6 @@
       ]
     }
   ],
-  "realtime": {
-    "weather": "Cloudy",
-    "temperature": 33,
-    "floodLevel": 3,
-    "flowRate": 2.7
-  },
   "evacCenters": [
     {
       "id": 1,
@@ -4842,5 +4845,8 @@
       "ycoor": "",
       "id": 2
     }
+  ],
+  "queries": [
+    
   ]
 }

@@ -52,74 +52,76 @@ const StatisticsPage = ({sensorLocation}) => {
         var level = getLevel(sensor[0], levelRange);
         var rate = getRate(sensor[0], rateRange);
         return (
-            <Container>
-                <Grid container spacing = {3}>
-                    <Grid item xs={12} md = {12}>
-                        <Card>
-                            <CardHeader
-                                className = {classes.cardHeader} 
-                                title = {<Typography variant = 'h4'>Flood Level</Typography>}
-                                subheader = {levelRange}
-                                action={
-                                    <ButtonGroup variant="contained" color="primary">
-                                        <Button onClick = {() => setLevelRange('Day')} variant = {levelRange === 'Day' ? 'contained' : 'outlined'}>DAY</Button>
-                                        <Button onClick = {() => setLevelRange('Week')} variant = {levelRange === 'Week' ? 'contained' : 'outlined'}>WEEK</Button>
-                                    </ButtonGroup>
-                                }
-                            />
-                            <CardContent>
-                                <Graph data = {
-                                    {
-                                        labels: level.datetime,
-                                        datasets: [
-                                            {
-                                                label: 'Flood Level in ft',
-                                                data: level.levels,
-                                                fill: false,
-                                                backgroundColor: theme.palette.secondary.main,
-                                                borderColor: theme.palette.secondary.dark,
-                                                yAxisID: 'y-axis-1',
-                                            }
-                                        ],
+            <div style = {{margin: '50px 0px'}}>
+                <Container>
+                    <Grid container spacing = {3}>
+                        <Grid item xs={12} md = {12}>
+                            <Card>
+                                <CardHeader
+                                    className = {classes.cardHeader} 
+                                    title = {<Typography variant = 'h4'>Flood Level</Typography>}
+                                    subheader = {levelRange}
+                                    action={
+                                        <ButtonGroup variant="contained" color="primary">
+                                            <Button onClick = {() => setLevelRange('Day')} variant = {levelRange === 'Day' ? 'contained' : 'outlined'}>DAY</Button>
+                                            <Button onClick = {() => setLevelRange('Week')} variant = {levelRange === 'Week' ? 'contained' : 'outlined'}>WEEK</Button>
+                                        </ButtonGroup>
                                     }
-                                }/>
-                            </CardContent>
-                        </Card>
-                    </Grid>
-                    <Grid item xs={12} md = {12}>
-                        <Card>
-                            <CardHeader 
-                                className = {classes.cardHeader} 
-                                title = {<Typography variant = 'h4'>Flow Rate</Typography>}
-                                subheader = {rateRange}
-                                action={
-                                    <ButtonGroup variant="contained" color={"primary"}>
-                                        <Button onClick = {() => setRateRange('Day')} variant = {rateRange === 'Day' ? 'contained' : 'outlined'}>DAY</Button>
-                                        <Button onClick = {() => setRateRange('Week')} variant = {rateRange === 'Week' ? 'contained' : 'outlined'}>WEEK</Button>
-                                    </ButtonGroup>
-                                }
-                            />
-                            <CardContent>
-                                <Graph data = {
-                                    {
-                                        labels: rate.datetime,
-                                        datasets: [
-                                            {
-                                                label: 'Flood Rate in m/s',
-                                                data: rate.rate,
-                                                fill: false,
-                                                backgroundColor: theme.palette.secondary.main,
-                                                borderColor: theme.palette.secondary.dark,
-                                                yAxisID: 'y-axis-1',
-                                            }
-                                        ],
+                                />
+                                <CardContent>
+                                    <Graph data = {
+                                        {
+                                            labels: level.datetime,
+                                            datasets: [
+                                                {
+                                                    label: 'Flood Level in ft',
+                                                    data: level.levels,
+                                                    fill: false,
+                                                    backgroundColor: theme.palette.secondary.main,
+                                                    borderColor: theme.palette.secondary.dark,
+                                                    yAxisID: 'y-axis-1',
+                                                }
+                                            ],
+                                        }
+                                    }/>
+                                </CardContent>
+                            </Card>
+                        </Grid>
+                        <Grid item xs={12} md = {12}>
+                            <Card>
+                                <CardHeader 
+                                    className = {classes.cardHeader} 
+                                    title = {<Typography variant = 'h4'>Flow Rate</Typography>}
+                                    subheader = {rateRange}
+                                    action={
+                                        <ButtonGroup variant="contained" color={"primary"}>
+                                            <Button onClick = {() => setRateRange('Day')} variant = {rateRange === 'Day' ? 'contained' : 'outlined'}>DAY</Button>
+                                            <Button onClick = {() => setRateRange('Week')} variant = {rateRange === 'Week' ? 'contained' : 'outlined'}>WEEK</Button>
+                                        </ButtonGroup>
                                     }
-                                }/>
-                            </CardContent>
-                        </Card>
+                                />
+                                <CardContent>
+                                    <Graph data = {
+                                        {
+                                            labels: rate.datetime,
+                                            datasets: [
+                                                {
+                                                    label: 'Flood Rate in m/s',
+                                                    data: rate.rate,
+                                                    fill: false,
+                                                    backgroundColor: theme.palette.secondary.main,
+                                                    borderColor: theme.palette.secondary.dark,
+                                                    yAxisID: 'y-axis-1',
+                                                }
+                                            ],
+                                        }
+                                    }/>
+                                </CardContent>
+                            </Card>
+                        </Grid>
                     </Grid>
-                </Grid>
-            </Container>
+                </Container>
+            </div>
         )
     } else {
         return (<Typography>{ error }</Typography>)

@@ -11,26 +11,27 @@ const useStyles = makeStyles((theme) => {
     }
 });
 
-export default function NoteCard({report}) {
+export default function MemberCard({member}) {
     const classes = useStyles();
 
     return (
         <Grid container spacing = {2}>
-            <Grid item xs = {3}>
+        {console.log(member)}
+            <Grid item xs = {2}>
                 <Card className = {classes.card}>
-                    <CardMedia image = {`${serverUrl}images/${report.uri}`} title = {report.heading} className = {classes.card}/>
+                    <CardMedia image = {`${serverUrl}images/${member.uri}`} title = {member.heading} className = {classes.card}/>
                 </Card>
             </Grid>
-            <Grid item xs = {9}>
+            <Grid item xs = {10}>
                 <Card className = {classes.card}>
                     <CardHeader
                         align = 'left'
-                        title = {report.heading}
-                        subheader = {'Report Time: ' + report.dateTime}
+                        title = {member.memberName}
+                        subheader = {member.position}
                     />
                     <CardContent align = 'left'>
                         <Typography variant='body1' color="textSecondary">
-                            {report.content.slice(0, 250) + '...'}
+                            {member.content.slice(0, 250) + '...'}
                         </Typography>
                     </CardContent>
                 </Card>

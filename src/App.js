@@ -84,7 +84,7 @@ function App() {
                   <MemberPage/>
                 </Route>
                 <Route exact path = "/settings">
-                  <SettingsPage credential = {credential}/>
+                  <SettingsPage credential = {credential} setCredential = {setCredential}/>
                 </Route>
                 <Route path = "*">
                   <NotFoundPage/>
