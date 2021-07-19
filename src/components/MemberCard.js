@@ -19,7 +19,7 @@ export default function MemberCard({member}) {
         {console.log(member)}
             <Grid item xs = {2}>
                 <Card className = {classes.card}>
-                    <CardMedia image = {`${serverUrl}images/${member.uri}`} title = {member.heading} className = {classes.card}/>
+                    <CardMedia image = {`img/${member.uri}`} title = {member.heading} className = {classes.card}/>
                 </Card>
             </Grid>
             <Grid item xs = {10}>

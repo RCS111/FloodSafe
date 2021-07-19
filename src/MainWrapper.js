@@ -16,10 +16,9 @@ import MenuIcon from '@material-ui/icons/Menu'
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import TextField from '@material-ui/core/TextField';
-import { serverUrl } from './shared/serverUrl'
+import { serverUrl } from './shared/serverUrl';
 
 const drawerWidth = 270;
-
 const useStyles = makeStyles((theme) => {
     return {
         root: {
@@ -54,7 +53,7 @@ const useStyles = makeStyles((theme) => {
         },
         drawerPaper: {
             width: drawerWidth,
-            backgroundImage: `url("${serverUrl}images/drawerBackground.jpg")`
+            backgroundImage: `url("img/drawerBackground.jpg")`
         },
         drawerHeader: {
           display: 'flex',
@@ -72,7 +71,7 @@ const useStyles = makeStyles((theme) => {
             duration: theme.transitions.duration.leavingScreen,
           }),
           marginLeft: -drawerWidth,
-          backgroundImage: `url("${serverUrl}images/contentBackground.jpg")`,
+          backgroundImage: `url("img/contentBackground.jpg")`,
           backgroundSize: 'cover',
           backgroundRepeat: 'repeat-x',
           backgroundPosition: 'right top',
@@ -137,7 +136,7 @@ const ListItem = withStyles({
     selected: {}
   })(MuiListItem);
 
-const options = ['Hagonoy', 'Paombong', 'Malolos', 'Calumpit'];
+const options = ['Hagonoy', 'Malolos', 'Calumpit'];
 
 export default function MainWrapper({children, credential, setCredential, sensorLocation, setSensorLocation}) {
     const classes = useStyles();

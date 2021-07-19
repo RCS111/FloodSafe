@@ -39,7 +39,7 @@ export default function ContactPage() {
             setMessageError(true);
         }
     
-        if(userNameError && emailError && phoneError && subjectError && messageError) {
+        if(!userNameError && !emailError && !phoneError && !subjectError && !messageError) {
           fetch(`${serverUrl}queries`, {
             method: 'POST',
             headers: {"Content-type": "application/json"},

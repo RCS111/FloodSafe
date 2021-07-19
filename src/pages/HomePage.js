@@ -46,7 +46,12 @@ const HomePage = ({sensorLocation}) => {
                     <Grid container spacing = {3}>
                         <Grid item xs = {12} md = {6}>
                             <Typography variant = 'h2'>Welcome to Floodsafe</Typography>
-                            <Typography variant = 'body1' style = {{padding: '20px 0px'}}>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Veniam fugiat corrupti, similique nostrum, facilis dolores suscipit nihil maiores repellat iste iure tempore eveniet. Dolores, praesentium eum vitae ex voluptatibus aliquid.</Typography>
+                            <Typography variant = 'body1' style = {{padding: '20px 0px'}}>
+                                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Veniam fugiat corrupti, similique nostrum, facilis dolores suscipit nihil maiores repellat iste iure tempore eveniet. Dolores, praesentium eum vitae ex voluptatibus aliquid.
+                            </Typography>
+                            <Typography variant = 'h6' style = {{padding: '20px 0px'}}>
+                                This webapp temporarily suspend http POST operations
+                            </Typography>
                             <Button variant = 'contained' color = 'primary' onClick = {() => history.push('/maps')} className = {classes.button}>VIEW MAP</Button>
                             <Button variant = 'outlined' color = 'primary' onClick = {() => history.push('/about')} className = {classes.button}>ABOUT</Button>
                         </Grid>
@@ -63,21 +68,21 @@ const HomePage = ({sensorLocation}) => {
                             <Card align = 'center' style = {{height: '220px', padding: 10, backgroundColor: theme.palette.primary.light}}>
                                 <Typography align = 'center' variant = 'h6'>Flow Rate</Typography>
                                 <FontAwesomeIcon icon={faTachometerAlt} size="6x" color="#ffffff"/>
-                                <Typography align = 'center' variant = 'h3'>{`${realtime[0].points[167].rate} m/s`}</Typography>
+                                <Typography align = 'center' variant = 'h3'>{`${realtime[0].points[11].rate} m/s`}</Typography>
                             </Card>
                         </Grid>
                         <Grid item xs={12} md = {4}>
                             <Card align = 'center' style = {{height: '220px', padding: 10, backgroundColor: theme.palette.primary.light}}>
                                 <Typography align = 'center' variant = 'h6'>Water Level</Typography>
                                 <FontAwesomeIcon icon={faWater} size="6x" color="#ffffff"/>
-                                <Typography align = 'center' variant = 'h3'>{`${realtime[0].points[167].level} ft`}</Typography>
+                                <Typography align = 'center' variant = 'h3'>{`${realtime[0].points[11].level} ft`}</Typography>
                             </Card>
                         </Grid>
                         <Grid item xs={12} md = {4}>
                             <Card align = 'center' style = {{height: '220px', padding: 10, backgroundColor: theme.palette.primary.light}}>
-                                <Typography align = 'center' variant = 'h6'>{realtime[0].points[167].weather}</Typography>
-                                <FontAwesomeIcon icon={icons[realtime[0].points[167].weather]} size="6x" color="#ffffff"/>
-                                <Typography align = 'center' variant = 'h3'>{`${realtime[0].points[167].temperature} \u00B0C`}</Typography>
+                                <Typography align = 'center' variant = 'h6'>{realtime[0].points[11].weather}</Typography>
+                                <FontAwesomeIcon icon={icons[realtime[0].points[11].weather]} size="6x" color="#ffffff"/>
+                                <Typography align = 'center' variant = 'h3'>{`${realtime[0].points[11].temperature} \u00B0C`}</Typography>
                             </Card>
                         </Grid>
                         <Grid item xs = {12}>
@@ -90,11 +95,11 @@ const HomePage = ({sensorLocation}) => {
                             <Typography align = 'right' variant = 'body1'>{(new Date()).toLocaleString()}</Typography>
                         </Grid>
                         {
-                            reports.map((report) => (
+                            reports.slice(0, 4).map((report) => (
                                 <Grid item xs = {3} id = {report.id}>
                                     <Card>
                                     <CardMedia
-                                        image = {`${serverUrl}images/${reports[0].uri}`}
+                                        image = {`img/${report.uri}`}
                                         title = {report.heading}
                                         className = {classes.media}
                                     />

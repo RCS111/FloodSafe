@@ -18,7 +18,7 @@ export default function NoteCard({report}) {
         <Grid container spacing = {2}>
             <Grid item xs = {3}>
                 <Card className = {classes.card}>
-                    <CardMedia image = {`${serverUrl}images/${report.uri}`} title = {report.heading} className = {classes.card}/>
+                    <CardMedia image = {`img/${report.uri}`} title = {report.heading} className = {classes.card}/>
                 </Card>
             </Grid>
             <Grid item xs = {9}>

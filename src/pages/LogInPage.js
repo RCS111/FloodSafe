@@ -1,5 +1,6 @@
 import { Backdrop, Button, Card, CardContent, Container, MenuItem, Divider, Fade, Grid, makeStyles, Modal, TextField } from '@material-ui/core'
 import Typography from '@material-ui/core/Typography'
+import { ContactSupportOutlined } from '@material-ui/icons'
 import { useState } from 'react'
 import { useHistory } from 'react-router'
 import { serverUrl } from '../shared/serverUrl'
@@ -156,6 +157,9 @@ export default function LogInPage({setCredential, setSensorLocation}) {
                 <Grid item xs={12} md={5} key = 'description'>
                     <Typography variant = 'h2'>Flood Safe</Typography>
                     <Typography variant = 'h5'>Be aware, prepared and updated with your local flood condition.</Typography>
+                    <Typography variant = 'h6' style = {{padding: '20px 0px', color: 'red'}}>
+                        This webapp temporarily suspend http POST operations
+                    </Typography>
                 </Grid>
                 <Grid item xs={12} md={6} offset = {1} key = 'form'>
                     <Card>
@@ -296,6 +300,7 @@ export default function LogInPage({setCredential, setSensorLocation}) {
                                         id="location"
                                         color = 'primary'
                                         fullWidth
+                                        error = {locationError}
                                         select
                                         label="Location"
                                         value={sensorLocation}

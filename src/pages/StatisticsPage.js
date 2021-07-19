@@ -10,9 +10,9 @@ function getLevel(sensor, range) {
     var datetime = [];
 
     if(range === 'Day')
-        sensor.points.slice(144, 168).forEach(point => {levels.push(point.level); datetime.push((new Date(point.datetime)).toLocaleString ());});
+        sensor.points.slice(6, 12).forEach(point => {levels.push(point.level); datetime.push((new Date(point.datetime)).toLocaleString ());});
     else
-        sensor.points.slice(0, 168).forEach(point => {levels.push(point.level); datetime.push((new Date(point.datetime)).toLocaleString ());});
+        sensor.points.slice(0, 12).forEach(point => {levels.push(point.level); datetime.push((new Date(point.datetime)).toLocaleString ());});
     
     return {levels, datetime};
 }
@@ -22,9 +22,9 @@ function getRate(sensor, range) {
     var datetime = [];
 
     if(range === 'Day')
-        sensor.points.slice(144, 168).forEach(point => {rate.push(point.rate); datetime.push((new Date(point.datetime)).toLocaleString ());});
+        sensor.points.slice(6, 12).forEach(point => {rate.push(point.rate); datetime.push((new Date(point.datetime)).toLocaleString ());});
     else
-        sensor.points.slice(0, 168).forEach(point => {rate.push(point.rate); datetime.push((new Date(point.datetime)).toLocaleString ());});
+        sensor.points.slice(0, 12).forEach(point => {rate.push(point.rate); datetime.push((new Date(point.datetime)).toLocaleString ());});
     
     return {rate, datetime};
 }
@@ -60,11 +60,11 @@ const StatisticsPage = ({sensorLocation}) => {
                                 <CardHeader
                                     className = {classes.cardHeader} 
                                     title = {<Typography variant = 'h4'>Flood Level</Typography>}
-                                    subheader = {levelRange}
+                                    subheader = {levelRange === 'Day' ? 'Half Day' : 'Whole Day'}
                                     action={
                                         <ButtonGroup variant="contained" color="primary">
-                                            <Button onClick = {() => setLevelRange('Day')} variant = {levelRange === 'Day' ? 'contained' : 'outlined'}>DAY</Button>
-                                            <Button onClick = {() => setLevelRange('Week')} variant = {levelRange === 'Week' ? 'contained' : 'outlined'}>WEEK</Button>
+                                            <Button onClick = {() => setLevelRange('Day')} variant = {levelRange === 'Day' ? 'contained' : 'outlined'}>HALF</Button>
+                                            <Button onClick = {() => setLevelRange('Week')} variant = {levelRange === 'Week' ? 'contained' : 'outlined'}>FULL</Button>
                                         </ButtonGroup>
                                     }
                                 />
@@ -92,11 +92,11 @@ const StatisticsPage = ({sensorLocation}) => {
                                 <CardHeader 
                                     className = {classes.cardHeader} 
                                     title = {<Typography variant = 'h4'>Flow Rate</Typography>}
-                                    subheader = {rateRange}
+                                    subheader = {rateRange === 'Day' ? 'Half Day' : 'Whole Day'}
                                     action={
                                         <ButtonGroup variant="contained" color={"primary"}>
-                                            <Button onClick = {() => setRateRange('Day')} variant = {rateRange === 'Day' ? 'contained' : 'outlined'}>DAY</Button>
-                                            <Button onClick = {() => setRateRange('Week')} variant = {rateRange === 'Week' ? 'contained' : 'outlined'}>WEEK</Button>
+                                            <Button onClick = {() => setRateRange('Day')} variant = {rateRange === 'Day' ? 'contained' : 'outlined'}>HALF</Button>
+                                            <Button onClick = {() => setRateRange('Week')} variant = {rateRange === 'Week' ? 'contained' : 'outlined'}>FULL</Button>
                                         </ButtonGroup>
                                     }
                                 />

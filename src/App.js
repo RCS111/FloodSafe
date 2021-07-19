@@ -36,8 +36,17 @@ const theme = createMuiTheme({
 });
 
 function App() {
-  const [credential, setCredential] = useState(null);
-  const [sensorLocation, setSensorLocation] = useState(null);
+  const [credential, setCredential] = useState({
+    "firstName": "Juan",
+    "lastName": "Dela Cruz",
+    "email": "juandelacruz@gmail.com",
+    "password": "1234",
+    "contactNo": "09651111111",
+    "type": "standard",
+    "location": "Malolos",
+    "id": 2
+  });
+  const [sensorLocation, setSensorLocation] = useState('Malolos');
 
   return (
     <ThemeProvider theme = {theme}>

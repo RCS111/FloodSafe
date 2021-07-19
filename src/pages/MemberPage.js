@@ -23,7 +23,7 @@ export default function MemberPage() {
                 <Grid container spacing = {3}>
                     <Grid item xs = {12} align = 'center'>
                         <Card className = {classes.card}>
-                            <CardMedia image = {`${serverUrl}images/dane.png`} title = 'Product Owner' className = {classes.card}/>
+                            <CardMedia image = {`img/dane.png`} title = 'Product Owner' className = {classes.card}/>
                         </Card>
                         <Typography variant = 'h4'>Dane Agoyaoy</Typography>
                         <Typography variant = 'h6'>Product Owner</Typography>
